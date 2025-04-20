@@ -3,18 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Free online tools for images and PDFs - compress, convert, merge, resize and optimize your files with our powerful web tools">
-    <meta name="keywords" content="image compressor, PDF tools, image converter, PDF to JPG, JPG to PDF, file optimization">
+    <meta name="description" content="Free online tools for images and PDFs - compress, convert, merge, edit and optimize your files with our powerful web tools">
+    <meta name="keywords" content="image compressor, PDF tools, image converter, PDF to JPG, JPG to PDF, file optimization, PDF merger, PDF splitter">
     <meta name="author" content="MediaTools">
-    <meta name="robots" content="index, follow">
-    <meta property="og:title" content="MediaTools - Free Image & PDF Tools">
-    <meta property="og:description" content="Free online tools for images and PDFs - compress, convert, merge and optimize your files">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://yourmediatools.com">
-    <meta property="og:image" content="https://yourmediatools.com/images/og-image.jpg">
-    <link rel="canonical" href="https://yourmediatools.com">
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <title>MediaTools - Free Online Image & PDF Optimization Tools</title>
+    <title>MediaTools - Free Online Image & PDF Tools</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID" crossorigin="anonymous"></script>
     <style>
@@ -25,7 +17,12 @@
             --light: #f8f9fa;
             --dark: #212529;
             --success: #4cc9f0;
-            --warning: #f72585;
+            --danger: #f72585;
+            --warning: #f8961e;
+            --pdf: #ff4b4b;
+            --image: #4361ee;
+            --office: #2e7d32;
+            --combined: #7209b7;
         }
         
         * {
@@ -44,7 +41,7 @@
         header {
             background: rgba(255, 255, 255, 0.9);
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            padding: 1.5rem 0;
+            padding: 1rem 0;
             position: sticky;
             top: 0;
             z-index: 100;
@@ -67,14 +64,14 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 700;
             color: var(--primary);
             text-decoration: none;
         }
         
         .logo i {
-            font-size: 2rem;
+            font-size: 1.8rem;
         }
         
         nav ul {
@@ -94,7 +91,7 @@
             color: var(--primary);
         }
         
-        /* Ad Banner - Top */
+        /* Ad Banner */
         .ad-banner {
             background: #f1f3f5;
             padding: 1rem;
@@ -123,66 +120,34 @@
         }
         
         .hero p {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: #555;
             max-width: 700px;
             margin: 0 auto 2rem;
             line-height: 1.6;
         }
         
-        .search-bar {
-            max-width: 600px;
-            margin: 0 auto 2rem;
-            position: relative;
-        }
-        
-        .search-bar input {
-            width: 100%;
-            padding: 1rem 1.5rem;
-            border-radius: 50px;
-            border: none;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            font-size: 1rem;
-            outline: none;
-        }
-        
-        .search-bar button {
-            position: absolute;
-            right: 5px;
-            top: 5px;
-            bottom: 5px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            padding: 0 1.5rem;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        
-        .search-bar button:hover {
-            background: var(--secondary);
-        }
-        
-        /* Ad Banner - Middle */
-        .ad-leaderboard {
-            background: #f1f3f5;
-            padding: 1rem;
+        .tool-categories {
             margin: 2rem 0;
-            border-radius: 8px;
-            text-align: center;
-            min-height: 250px;
+        }
+        
+        .category-title {
             display: flex;
             align-items: center;
-            justify-content: center;
-            border: 1px dashed #ccc;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #eee;
+        }
+        
+        .category-title h2 {
+            margin-left: 0.5rem;
         }
         
         .tools-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 2rem;
-            padding: 2rem 0;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
         }
         
         .tool-card {
@@ -199,30 +164,32 @@
         }
         
         .card-header {
-            height: 160px;
-            background: var(--primary);
+            height: 140px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 3rem;
-            position: relative;
+            font-size: 2.5rem;
         }
         
-        .card-header.pdf {
-            background: linear-gradient(45deg, #ff4b4b, #ff7676);
+        .image-tool {
+            background: linear-gradient(45deg, var(--image), var(--accent));
         }
         
-        .card-header.image {
-            background: linear-gradient(45deg, #4361ee, #4895ef);
+        .pdf-tool {
+            background: linear-gradient(45deg, var(--pdf), #ff7676);
         }
         
-        .card-header.combined {
-            background: linear-gradient(45deg, #7209b7, #b5179e);
+        .office-tool {
+            background: linear-gradient(45deg, var(--office), #4caf50);
+        }
+        
+        .combined-tool {
+            background: linear-gradient(45deg, var(--combined), #b5179e);
         }
         
         .card-body {
-            padding: 1.5rem;
+            padding: 1.2rem;
         }
         
         .card-body h3 {
@@ -232,7 +199,8 @@
         
         .card-body p {
             color: #666;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
             line-height: 1.5;
         }
         
@@ -240,11 +208,39 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 1.5rem 1.5rem;
+            padding: 0 1.2rem 1.2rem;
+        }
+        
+        .tag {
+            display: inline-block;
+            padding: 0.3rem 0.6rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        
+        .tag-image {
+            background: rgba(67, 97, 238, 0.1);
+            color: var(--image);
+        }
+        
+        .tag-pdf {
+            background: rgba(255, 75, 75, 0.1);
+            color: var(--pdf);
+        }
+        
+        .tag-office {
+            background: rgba(46, 125, 50, 0.1);
+            color: var(--office);
+        }
+        
+        .tag-combined {
+            background: rgba(114, 9, 183, 0.1);
+            color: var(--combined);
         }
         
         .btn {
-            padding: 0.6rem 1.2rem;
+            padding: 0.5rem 1rem;
             border-radius: 5px;
             border: none;
             font-weight: 500;
@@ -252,6 +248,7 @@
             transition: all 0.3s;
             text-decoration: none;
             display: inline-block;
+            font-size: 0.9rem;
         }
         
         .btn-primary {
@@ -261,42 +258,6 @@
         
         .btn-primary:hover {
             background: var(--secondary);
-        }
-        
-        .btn-outline {
-            background: transparent;
-            border: 1px solid var(--primary);
-            color: var(--primary);
-        }
-        
-        .btn-outline:hover {
-            background: var(--primary);
-            color: white;
-        }
-        
-        .tag {
-            display: inline-block;
-            padding: 0.3rem 0.6rem;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            background: #e9ecef;
-            color: #495057;
-        }
-        
-        /* Ad Banner - Bottom */
-        .ad-square {
-            background: #f1f3f5;
-            padding: 1rem;
-            margin: 2rem auto;
-            border-radius: 8px;
-            text-align: center;
-            min-height: 250px;
-            max-width: 300px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px dashed #ccc;
         }
         
         footer {
@@ -329,6 +290,7 @@
             color: #adb5bd;
             text-decoration: none;
             transition: color 0.3s;
+            font-size: 0.9rem;
         }
         
         .footer-column a:hover {
@@ -355,19 +317,6 @@
             font-size: 0.9rem;
         }
         
-        /* Schema.org structured data */
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border-width: 0;
-        }
-        
         @media (max-width: 768px) {
             .header-content {
                 flex-direction: column;
@@ -376,31 +325,20 @@
             
             nav ul {
                 gap: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
             }
             
             .hero h1 {
                 font-size: 2rem;
             }
             
-            .hero p {
-                font-size: 1rem;
-            }
-            
             .tools-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            }
-            
-            .ad-leaderboard {
-                min-height: 180px;
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
             }
         }
         
         @media (max-width: 480px) {
-            nav ul {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
             .tools-grid {
                 grid-template-columns: 1fr;
             }
@@ -412,42 +350,19 @@
     </style>
 </head>
 <body>
-    <!-- Schema.org markup -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "MediaTools - Free Image & PDF Tools",
-      "url": "https://yourmediatools.com",
-      "description": "Free online tools for images and PDFs - compress, convert, merge, resize and optimize your files",
-      "applicationCategory": "UtilitiesApplication",
-      "operatingSystem": "Web Browser",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "creator": {
-        "@type": "Organization",
-        "name": "MediaTools"
-      }
-    }
-    </script>
-    
     <header>
         <div class="container">
             <div class="header-content">
-                <a href="/" class="logo" aria-label="MediaTools Home">
-                    <i class="fas fa-tools" aria-hidden="true"></i>
+                <a href="/" class="logo">
+                    <i class="fas fa-tools"></i>
                     <span>MediaTools</span>
                 </a>
-                <nav aria-label="Main navigation">
+                <nav>
                     <ul>
-                        <li><a href="/">Home</a></li>
-                        <li><a href="/image-tools">Image Tools</a></li>
-                        <li><a href="/pdf-tools">PDF Tools</a></li>
-                        <li><a href="/about">About</a></li>
-                        <li><a href="/contact">Contact</a></li>
+                        <li><a href="#image-tools">Image Tools</a></li>
+                        <li><a href="#pdf-tools">PDF Tools</a></li>
+                        <li><a href="#office-tools">Office Tools</a></li>
+                        <li><a href="#combined-tools">Combined Tools</a></li>
                     </ul>
                 </nav>
             </div>
@@ -457,7 +372,6 @@
     <main class="container">
         <!-- Top Ad Banner -->
         <div class="ad-banner">
-            <!-- AdSense Ad Unit -->
             <ins class="adsbygoogle"
                  style="display:block"
                  data-ad-client="ca-pub-YOUR_ADSENSE_ID"
@@ -471,21 +385,81 @@
         
         <section class="hero">
             <h1>Your Complete Media Toolkit</h1>
-            <p>Transform, optimize, and manage your images and PDFs with our powerful online tools. All tools are free to use and work right in your browser.</p>
+            <p>Transform, optimize, and manage your images, PDFs, and Office documents with our powerful online tools. All tools are free to use and work right in your browser.</p>
+        </section>
+        
+        <!-- Image Tools Section -->
+        <section class="tool-categories" id="image-tools">
+            <div class="category-title">
+                <i class="fas fa-image" style="color: var(--image);"></i>
+                <h2>Image Tools</h2>
+            </div>
             
-            <div class="search-bar">
-                <input type="text" placeholder="Search for tools..." aria-label="Search tools">
-                <button type="button"><i class="fas fa-search"></i> Search</button>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="card-header image-tool">
+                        <i class="fas fa-compress-alt"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3>Image Compressor</h3>
+                        <p>Reduce image file size without noticeable quality loss. Supports JPG, PNG, and WebP formats.</p>
+                    </div>
+                    <div class="card-footer">
+                        <span class="tag tag-image">Image</span>
+                        <a href="/image-compressor" class="btn btn-primary">Use Tool</a>
+                    </div>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="card-header image-tool">
+                        <i class="fas fa-expand"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3>Image Resizer</h3>
+                        <p>Resize your images to any dimension while maintaining aspect ratio. Batch processing available.</p>
+                    </div>
+                    <div class="card-footer">
+                        <span class="tag tag-image">Image</span>
+                        <a href="/image-resizer" class="btn btn-primary">Use Tool</a>
+                    </div>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="card-header image-tool">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3>Image Converter</h3>
+                        <p>Convert between different image formats (JPG, PNG, GIF, WebP, SVG, and more).</p>
+                    </div>
+                    <div class="card-footer">
+                        <span class="tag tag-image">Image</span>
+                        <a href="/image-converter" class="btn btn-primary">Use Tool</a>
+                    </div>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="card-header image-tool">
+                        <i class="fas fa-file-image"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3>JPG to PDF</h3>
+                        <p>Convert multiple JPG images into a single PDF document. Adjust layout and quality.</p>
+                    </div>
+                    <div class="card-footer">
+                        <span class="tag tag-image">Image</span>
+                        <a href="/jpg-to-pdf" class="btn btn-primary">Use Tool</a>
+                    </div>
+                </div>
             </div>
         </section>
         
         <!-- Middle Ad Banner -->
-        <div class="ad-leaderboard">
-            <!-- AdSense Ad Unit -->
+        <div class="ad-banner">
             <ins class="adsbygoogle"
                  style="display:block"
                  data-ad-client="ca-pub-YOUR_ADSENSE_ID"
-                 data-ad-slot="YOUR_AD_UNIT_ID_LEADERBOARD"
+                 data-ad-slot="YOUR_AD_UNIT_ID_MIDDLE"
                  data-ad-format="auto"
                  data-full-width-responsive="true"></ins>
             <script>
@@ -493,144 +467,272 @@
             </script>
         </div>
         
-        <section class="tools-grid">
-            <!-- Image Tools -->
-            <div class="tool-card">
-                <div class="card-header image">
-                    <i class="fas fa-image" aria-hidden="true"></i>
-                    <span class="sr-only">Image Tools</span>
-                </div>
-                <div class="card-body">
-                    <h3>Image Compressor</h3>
-                    <p>Reduce image file size without noticeable quality loss. Supports JPG, PNG, and WebP formats.</p>
-                </div>
-                <div class="card-footer">
-                    <span class="tag">Image</span>
-                    <a href="/image-compressor" class="btn btn-primary">Use Tool</a>
-                </div>
+        <!-- PDF Tools Section -->
+        <section class="tool-categories" id="pdf-tools">
+            <div class="category-title">
+                <i class="fas fa-file-pdf" style="color: var(--pdf);"></i>
+                <h2>PDF Tools</h2>
             </div>
             
-            <div class="tool-card">
-                <div class="card-header image">
-                    <i class="fas fa-crop-alt" aria-hidden="true"></i>
-                    <span class="sr-only">Image Resizer</span>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="card-header pdf-tool">
+                        <i class="fas fa-file-merge"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3>PDF Merger</h3>
+                        <p>Combine multiple PDF files into a single document. Reorder pages as needed.</p>
+                    </div>
+                    <div class="card-footer">
+                        <span class="tag tag-pdf">PDF</span>
+                        <a href="/pdf-merger" class="btn btn-primary">Use Tool</a>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <h3>Image Resizer</h3>
-                    <p>Resize your images to any dimension while maintaining aspect ratio. Batch processing available.</p>
+                
+                <div class="tool-card">
+                    <div class="card-header pdf-tool">
+                        <i class="fas fa-compress-alt"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3>PDF Compressor</h3>
+                        <p>Reduce PDF file size while preserving quality. Perfect for email attachments and web uploads.</p>
+                    </div>
+                    <div class="card-footer">
+                        <span class="tag tag-pdf">PDF</span>
+                        <a href="/pdf-compressor" class="btn btn-primary">Use Tool</a>
+                    </div>
                 </div>
-                <div class="card-footer">
-                    <span class="tag">Image</span>
-                    <a href="/image-resizer" class="btn btn-primary">Use Tool</a>
+                
+                <div class="tool-card">
+                    <div class="card-header pdf-tool">
+                        <i class="fas fa-file-image"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3>PDF to JPG</h3>
+                        <p>Convert PDF pages to high-quality JPG images. Extract all pages or select specific ones.</p>
+                    </div>
+                    <div class="card-footer">
+                        <span class="tag tag-pdf">PDF</span>
+                        <a href="/pdf-to-jpg" class="btn btn-primary">Use Tool</a>
+                    </div>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="card-header pdf-tool">
+                        <i class="fas fa-cut"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3>PDF Splitter</h3>
+                        <p>Split PDF documents into multiple files. Extract specific pages or split by page ranges.</p>
+                    </div>
+                    <div class="card-footer">
+                        <span class="tag tag-pdf">PDF</span>
+                        <a href="/pdf-splitter" class="btn btn-primary">Use Tool</a>
+                    </div>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="card-header pdf-tool">
+                        <i class="fas fa-file-word"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3>PDF to Word</h3>
+                        <p>Convert PDF files to editable Word documents while preserving formatting.</p>
+                    </div>
+                    <div class="card-footer">
+                        <span class="tag tag-pdf">PDF</span>
+                        <a href="/pdf-to-word" class="btn btn-primary">Use Tool</a>
+                    </div>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="card-header pdf-tool">
+                        <i class="fas fa-file-powerpoint"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3>PDF to Powerpoint</h3>
+                        <p>Convert PDF presentations to editable Powerpoint slides with minimal formatting loss.</p>
+                    </div>
+                    <div class="card-footer">
+                        <span class="tag tag-pdf">PDF</span>
+                        <a href="/pdf-to-powerpoint" class="btn btn-primary">Use Tool</a>
+                    </div>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="card-header pdf-tool">
+                        <i class="fas fa-file-excel"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3>PDF to Excel</h3>
+                        <p>Extract tables from PDF files into editable Excel spreadsheets with accurate formatting.</p>
+                    </div>
+                    <div class="card-footer">
+                        <span class="tag tag-pdf">PDF</span>
+                        <a href="/pdf-to-excel" class="btn btn-primary">Use Tool</a>
+                    </div>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="card-header pdf-tool">
+                        <i class="fas fa-undo"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3>Rotate PDF</h3>
+                        <p>Rotate PDF pages in 90° increments. Fix incorrectly oriented scans or documents.</p>
+                    </div>
+                    <div class="card-footer">
+                        <span class="tag tag-pdf">PDF</span>
+                        <a href="/rotate-pdf" class="btn btn-primary">Use Tool</a>
+                    </div>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="card-header pdf-tool">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3>HTML to PDF</h3>
+                        <p>Convert web pages or HTML files to PDF documents with preserved layout.</p>
+                    </div>
+                    <div class="card-footer">
+                        <span class="tag tag-pdf">PDF</span>
+                        <a href="/html-to-pdf" class="btn btn-primary">Use Tool</a>
+                    </div>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="card-header pdf-tool">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3>PDF Protector</h3>
+                        <p>Add password protection to your PDF files or remove passwords from unlocked PDFs.</p>
+                    </div>
+                    <div class="card-footer">
+                        <span class="tag tag-pdf">PDF</span>
+                        <a href="/pdf-protector" class="btn btn-primary">Use Tool</a>
+                    </div>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="card-header pdf-tool">
+                        <i class="fas fa-columns"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3>PDF Compare</h3>
+                        <p>Compare two PDF documents and highlight differences in text and layout.</p>
+                    </div>
+                    <div class="card-footer">
+                        <span class="tag tag-pdf">PDF</span>
+                        <a href="/pdf-compare" class="btn btn-primary">Use Tool</a>
+                    </div>
                 </div>
             </div>
-            
-            <div class="tool-card">
-                <div class="card-header image">
-                    <i class="fas fa-file-image" aria-hidden="true"></i>
-                    <span class="sr-only">Image Converter</span>
-                </div>
-                <div class="card-body">
-                    <h3>Image Converter</h3>
-                    <p>Convert between different image formats (JPG, PNG, GIF, WebP, SVG, and more).</p>
-                </div>
-                <div class="card-footer">
-                    <span class="tag">Image</span>
-                    <a href="/image-converter" class="btn btn-primary">Use Tool</a>
-                </div>
+        </section>
+        
+        <!-- Office Tools Section -->
+        <section class="tool-categories" id="office-tools">
+            <div class="category-title">
+                <i class="fas fa-file-alt" style="color: var(--office);"></i>
+                <h2>Office Tools</h2>
             </div>
             
-            <!-- PDF Tools -->
-            <div class="tool-card">
-                <div class="card-header pdf">
-                    <i class="fas fa-file-pdf" aria-hidden="true"></i>
-                    <span class="sr-only">PDF Tools</span>
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="card-header office-tool">
+                        <i class="fas fa-file-word"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3>Word to PDF</h3>
+                        <p>Convert Word documents to PDF files while preserving formatting and layout.</p>
+                    </div>
+                    <div class="card-footer">
+                        <span class="tag tag-office">Office</span>
+                        <a href="/word-to-pdf" class="btn btn-primary">Use Tool</a>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <h3>PDF Compressor</h3>
-                    <p>Reduce PDF file size while preserving quality. Perfect for email attachments and web uploads.</p>
+                
+                <div class="tool-card">
+                    <div class="card-header office-tool">
+                        <i class="fas fa-file-powerpoint"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3>Powerpoint to PDF</h3>
+                        <p>Convert Powerpoint presentations to PDF files with slides preserved as pages.</p>
+                    </div>
+                    <div class="card-footer">
+                        <span class="tag tag-office">Office</span>
+                        <a href="/powerpoint-to-pdf" class="btn btn-primary">Use Tool</a>
+                    </div>
                 </div>
-                <div class="card-footer">
-                    <span class="tag">PDF</span>
-                    <a href="/pdf-compressor" class="btn btn-primary">Use Tool</a>
-                </div>
-            </div>
-            
-            <div class="tool-card">
-                <div class="card-header pdf">
-                    <i class="fas fa-file-merge" aria-hidden="true"></i>
-                    <span class="sr-only">PDF Merger</span>
-                </div>
-                <div class="card-body">
-                    <h3>PDF Merger</h3>
-                    <p>Combine multiple PDF files into a single document. Reorder pages as needed.</p>
-                </div>
-                <div class="card-footer">
-                    <span class="tag">PDF</span>
-                    <a href="/pdf-merger" class="btn btn-primary">Use Tool</a>
-                </div>
-            </div>
-            
-            <div class="tool-card">
-                <div class="card-header pdf">
-                    <i class="fas fa-file-export" aria-hidden="true"></i>
-                    <span class="sr-only">PDF to JPG</span>
-                </div>
-                <div class="card-body">
-                    <h3>PDF to JPG</h3>
-                    <p>Convert PDF pages to high-quality JPG images. Extract all pages or select specific ones.</p>
-                </div>
-                <div class="card-footer">
-                    <span class="tag">PDF</span>
-                    <a href="/pdf-to-jpg" class="btn btn-primary">Use Tool</a>
-                </div>
-            </div>
-            
-            <!-- Combined Tools -->
-            <div class="tool-card">
-                <div class="card-header combined">
-                    <i class="fas fa-images" aria-hidden="true"></i>
-                    <span class="sr-only">JPG to PDF</span>
-                </div>
-                <div class="card-body">
-                    <h3>JPG to PDF</h3>
-                    <p>Convert multiple JPG images into a single PDF document. Adjust layout and quality.</p>
-                </div>
-                <div class="card-footer">
-                    <span class="tag">Combined</span>
-                    <a href="/jpg-to-pdf" class="btn btn-primary">Use Tool</a>
-                </div>
-            </div>
-            
-            <div class="tool-card">
-                <div class="card-header combined">
-                    <i class="fas fa-water" aria-hidden="true"></i>
-                    <span class="sr-only">Watermark Tool</span>
-                </div>
-                <div class="card-body">
-                    <h3>Watermark Tool</h3>
-                    <p>Add text or image watermarks to your photos or PDF documents in batch.</p>
-                </div>
-                <div class="card-footer">
-                    <span class="tag">Combined</span>
-                    <a href="/watermark-tool" class="btn btn-primary">Use Tool</a>
+                
+                <div class="tool-card">
+                    <div class="card-header office-tool">
+                        <i class="fas fa-file-excel"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3>Excel to PDF</h3>
+                        <p>Convert Excel spreadsheets to PDF files with accurate table formatting.</p>
+                    </div>
+                    <div class="card-footer">
+                        <span class="tag tag-office">Office</span>
+                        <a href="/excel-to-pdf" class="btn btn-primary">Use Tool</a>
+                    </div>
                 </div>
             </div>
         </section>
         
         <!-- Bottom Ad Banner -->
-        <div class="ad-square">
-            <!-- AdSense Ad Unit -->
+        <div class="ad-banner">
             <ins class="adsbygoogle"
                  style="display:block"
                  data-ad-client="ca-pub-YOUR_ADSENSE_ID"
-                 data-ad-slot="YOUR_AD_UNIT_ID_SQUARE"
+                 data-ad-slot="YOUR_AD_UNIT_ID_BOTTOM"
                  data-ad-format="auto"
                  data-full-width-responsive="true"></ins>
             <script>
                  (adsbygoogle = window.adsbygoogle || []).push({});
             </script>
         </div>
+        
+        <!-- Combined Tools Section -->
+        <section class="tool-categories" id="combined-tools">
+            <div class="category-title">
+                <i class="fas fa-random" style="color: var(--combined);"></i>
+                <h2>Combined Tools</h2>
+            </div>
+            
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="card-header combined-tool">
+                        <i class="fas fa-water"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3>Watermark Tool</h3>
+                        <p>Add text or image watermarks to your photos or PDF documents in batch.</p>
+                    </div>
+                    <div class="card-footer">
+                        <span class="tag tag-combined">Combined</span>
+                        <a href="/watermark-tool" class="btn btn-primary">Use Tool</a>
+                    </div>
+                </div>
+                
+                <div class="tool-card">
+                    <div class="card-header combined-tool">
+                        <i class="fas fa-images"></i>
+                    </div>
+                    <div class="card-body">
+                        <h3>JPG to PDF</h3>
+                        <p>Convert multiple JPG images into a single PDF document. Adjust layout and quality.</p>
+                    </div>
+                    <div class="card-footer">
+                        <span class="tag tag-combined">Combined</span>
+                        <a href="/jpg-to-pdf" class="btn btn-primary">Use Tool</a>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
     
     <footer>
@@ -638,32 +740,40 @@
             <div class="footer-content">
                 <div class="footer-column">
                     <h3>MediaTools</h3>
-                    <p>Your one-stop solution for all image and PDF conversion and optimization needs.</p>
+                    <p>Your one-stop solution for all file conversion and optimization needs.</p>
                     <div class="social-links">
-                        <a href="https://twitter.com/mediatools" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="https://facebook.com/mediatools" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-                        <a href="https://instagram.com/mediatools" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="https://github.com/mediatools" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
                     </div>
                 </div>
                 <div class="footer-column">
                     <h3>Image Tools</h3>
                     <ul>
-                        <li><a href="/image-compressor">Compressor</a></li>
-                        <li><a href="/image-resizer">Resizer</a></li>
-                        <li><a href="/image-converter">Converter</a></li>
-                        <li><a href="/watermark-tool">Watermark</a></li>
-                        <li><a href="/image-editor">Editor</a></li>
+                        <li><a href="/image-compressor">Image Compressor</a></li>
+                        <li><a href="/image-resizer">Image Resizer</a></li>
+                        <li><a href="/image-converter">Image Converter</a></li>
+                        <li><a href="/jpg-to-pdf">JPG to PDF</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
                     <h3>PDF Tools</h3>
                     <ul>
-                        <li><a href="/pdf-compressor">Compressor</a></li>
-                        <li><a href="/pdf-merger">Merger</a></li>
-                        <li><a href="/pdf-splitter">Splitter</a></li>
-                        <li><a href="/pdf-converter">Converter</a></li>
-                        <li><a href="/pdf-protect">Protect</a></li>
+                        <li><a href="/pdf-compressor">PDF Compressor</a></li>
+                        <li><a href="/pdf-merger">PDF Merger</a></li>
+                        <li><a href="/pdf-splitter">PDF Splitter</a></li>
+                        <li><a href="/pdf-to-jpg">PDF to JPG</a></li>
+                        <li><a href="/pdf-to-word">PDF to Word</a></li>
+                        <li><a href="/pdf-protector">PDF Protector</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Office Tools</h3>
+                    <ul>
+                        <li><a href="/word-to-pdf">Word to PDF</a></li>
+                        <li><a href="/powerpoint-to-pdf">Powerpoint to PDF</a></li>
+                        <li><a href="/excel-to-pdf">Excel to PDF</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
@@ -673,7 +783,6 @@
                         <li><a href="/contact">Contact</a></li>
                         <li><a href="/privacy">Privacy Policy</a></li>
                         <li><a href="/terms">Terms of Service</a></li>
-                        <li><a href="/faq">FAQ</a></li>
                     </ul>
                 </div>
             </div>
@@ -691,17 +800,6 @@
         document.addEventListener('DOMContentLoaded', function() {
             // You can add any ad-related JavaScript here
         });
-        
-        // Service Worker for PWA (optional)
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js').then(registration => {
-                    console.log('ServiceWorker registration successful');
-                }).catch(err => {
-                    console.log('ServiceWorker registration failed: ', err);
-                });
-            });
-        }
     </script>
 </body>
 </html>
