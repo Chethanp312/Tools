@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Convert PDF files to PowerPoint presentations online. Free tool with image optimization and quality settings.">
+    <meta name="keywords" content="PDF to PPT, PDF to PowerPoint, convert PDF, online converter, presentation tool">
+    <meta name="author" content="PDF to PPT Converter">
+    <meta property="og:title" content="Free PDF to PowerPoint Converter">
+    <meta property="og:description" content="Convert your PDF files to editable PowerPoint presentations with our online tool.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourwebsite.com">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://yourwebsite.com/pdf-to-ppt">
+    <title>PDF to PowerPoint Converter | Free Online Tool</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.12.313/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pptxgenjs/3.11.0/pptxgen.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #4285f4;
+            --secondary-color: #34a853;
+            --accent-color: #ea4335;
+            --light-gray: #f5f5f5;
+            --dark-gray: #333;
+            --medium-gray: #757575;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: var(--dark-gray);
+            background-color: #f9f9f9;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--accent-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 25px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark-gray);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+        
+        .mobile-menu {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        .ad-banner {
+            background-color: var(--light-gray);
+            padding: 15px;
+            text-align: center;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .ad-banner p {
+            margin-bottom: 10px;
+            color: var(--medium-gray);
+        }
+        
+        main {
+            padding: 40px 0;
+        }
+        
+        .hero {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--dark-gray);
+        }
+        
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--medium-gray);
+            max-width: 700px;
+            margin: 0 auto 25px;
+        }
+        
+        .converter-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .upload-area {
+            border: 2px dashed #ccc;
+            border-radius: 5px;
+            padding: 40px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 25px;
+        }
+        
+        .upload-area:hover {
+            border-color: var(--primary-color);
+            background-color: rgba(66, 133, 244, 0.05);
+        }
+        
+        .upload-area i {
+            font-size: 48px;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        .upload-area p {
+            margin-bottom: 15px;
+            color: var(--medium-gray);
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #3367d6;
+        }
+        
+        .btn-secondary {
+            background-color: var(--medium-gray);
+        }
+        
+        .btn-secondary:hover {
+            background-color: #616161;
+        }
+        
+        .settings {
+            margin-bottom: 25px;
+        }
+        
+        .settings h3 {
+            margin-bottom: 15px;
+            color: var(--dark-gray);
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        select, input[type="range"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        .range-value {
+            display: inline-block;
+            margin-left: 10px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .preview-container {
+            display: none;
+            margin-top: 30px;
+        }
+        
+        .preview-container h3 {
+            margin-bottom: 15px;
+        }
+        
+        .preview-images {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .preview-image {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .preview-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .progress-container {
+            display: none;
+            margin: 20px 0;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background-color: #eee;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        
+        .progress {
+            height: 100%;
+            background-color: var(--secondary-color);
+            width: 0%;
+            transition: width 0.3s;
+        }
+        
+        .status {
+            text-align: center;
+            color: var(--medium-gray);
+        }
+        
+        .result-container {
+            display: none;
+            text-align: center;
+            margin-top: 30px;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .feature-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+        
+        .feature-card i {
+            font-size: 40px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 15px;
+            color: var(--dark-gray);
+        }
+        
+        .feature-card p {
+            color: var(--medium-gray);
+        }
+        
+        footer {
+            background-color: var(--dark-gray);
+            color: white;
+            padding: 40px 0 20px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-column ul li a {
+            color: #bbb;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            color: #bbb;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0 10px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .converter-container {
+                padding: 20px;
+            }
+            
+            .preview-images {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .mobile-menu {
+                display: block;
+            }
+            
+            nav {
+                display: none;
+            }
+            
+            nav.active {
+                display: block;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav ul li {
+                margin: 10px 0;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <a href="/" class="logo">PDF<span>2</span>PPT</a>
+            <div class="mobile-menu">☰</div>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/features">Features</a></li>
+                    <li><a href="/how-to">How To</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Top Ad Banner -->
+        <div class="ad-banner">
+            <p>Advertisement</p>
+            <!-- Replace with your AdSense ad unit code -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                 data-ad-slot="YOUR_AD_SLOT_ID"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
+        <section class="hero">
+            <h1>Convert PDF to PowerPoint in Seconds</h1>
+            <p>Transform your PDF files into editable PowerPoint presentations with our free online tool. Perfect for reports, presentations, and more.</p>
+        </section>
+
+        <section class="converter-container">
+            <div class="upload-area" id="uploadArea">
+                <i>📁</i>
+                <h3>Drag & Drop Your PDF File</h3>
+                <p>or click to browse your files</p>
+                <input type="file" id="fileInput" accept=".pdf" style="display: none;">
+                <button class="btn" id="selectFileBtn">Select PDF File</button>
+            </div>
+
+            <div class="settings">
+                <h3>Conversion Settings</h3>
+                <div class="form-group">
+                    <label for="compressionLevel">Image Quality: <span id="compressionValue" class="range-value">Medium</span></label>
+                    <input type="range" id="compressionLevel" min="0" max="2" value="1" step="1">
+                </div>
+                <div class="form-group">
+                    <label for="outputFormat">Output Format:</label>
+                    <select id="outputFormat">
+                        <option value="pptx">PowerPoint (.pptx)</option>
+                        <option value="pdf">PDF Presentation</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="slideLayout">Slide Layout:</label>
+                    <select id="slideLayout">
+                        <option value="full">Full Page per Slide</option>
+                        <option value="split">Split Content Across Slides</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="preview-container" id="previewContainer">
+                <h3>File Preview</h3>
+                <div class="preview-images" id="previewImages"></div>
+                <button class="btn" id="convertBtn">Convert to PowerPoint</button>
+                <button class="btn btn-secondary" id="cancelBtn">Cancel</button>
+            </div>
+
+            <div class="progress-container" id="progressContainer">
+                <div class="progress-bar">
+                    <div class="progress" id="progressBar"></div>
+                </div>
+                <p class="status" id="statusText">Processing your file...</p>
+            </div>
+
+            <div class="result-container" id="resultContainer">
+                <h3>Conversion Complete!</h3>
+                <p>Your PowerPoint file is ready to download.</p>
+                <a href="#" class="btn" id="downloadBtn">Download PowerPoint</a>
+                <button class="btn btn-secondary" id="newFileBtn">Convert Another File</button>
+            </div>
+        </section>
+
+        <!-- Middle Ad Banner -->
+        <div class="ad-banner">
+            <p>Advertisement</p>
+            <!-- Replace with your AdSense ad unit code -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                 data-ad-slot="YOUR_AD_SLOT_ID"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
+        <section class="features">
+            <div class="feature-card">
+                <i>⚡</i>
+                <h3>Fast Conversion</h3>
+                <p>Convert your PDF files to PowerPoint in seconds with our optimized processing engine.</p>
+            </div>
+            <div class="feature-card">
+                <i>🖼️</i>
+                <h3>Image Optimization</h3>
+                <p>Adjust image quality to balance file size and presentation quality.</p>
+            </div>
+            <div class="feature-card">
+                <i>🔒</i>
+                <h3>Secure Processing</h3>
+                <p>Your files are processed in your browser and never uploaded to our servers.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>PDF2PPT</h3>
+                    <ul>
+                        <li><a href="/about">About Us</a></li>
+                        <li><a href="/features">Features</a></li>
+                        <li><a href="/pricing">Pricing</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="/blog">Blog</a></li>
+                        <li><a href="/tutorials">Tutorials</a></li>
+                        <li><a href="/faq">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="/privacy">Privacy Policy</a></li>
+                        <li><a href="/terms">Terms of Service</a></li>
+                        <li><a href="/cookies">Cookie Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li><a href="/contact">Contact Us</a></li>
+                        <li><a href="/support">Support</a></li>
+                        <li><a href="/feedback">Feedback</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 PDF2PPT Converter. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            document.querySelector('nav').classList.toggle('active');
+        });
+
+        // Compression level display
+        const compressionLevel = document.getElementById('compressionLevel');
+        const compressionValue = document.getElementById('compressionValue');
+        
+        compressionLevel.addEventListener('input', function() {
+            const levels = ['Low', 'Medium', 'High'];
+            compressionValue.textContent = levels[this.value];
+        });
+
+        // File upload handling
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const selectFileBtn = document.getElementById('selectFileBtn');
+        const previewContainer = document.getElementById('previewContainer');
+        const previewImages = document.getElementById('previewImages');
+        const convertBtn = document.getElementById('convertBtn');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const progressContainer = document.getElementById('progressContainer');
+        const progressBar = document.getElementById('progressBar');
+        const statusText = document.getElementById('statusText');
+        const resultContainer = document.getElementById('resultContainer');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const newFileBtn = document.getElementById('newFileBtn');
+
+        // Click on upload area or button to trigger file input
+        uploadArea.addEventListener('click', function() {
+            fileInput.click();
+        });
+
+        selectFileBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            fileInput.click();
+        });
+
+        // Handle file selection
+        fileInput.addEventListener('change', function(e) {
+            if (e.target.files.length > 0) {
+                const file = e.target.files[0];
+                if (file.type === 'application/pdf') {
+                    showPreview(file);
+                } else {
+                    alert('Please select a PDF file.');
+                }
+            }
+        });
+
+        // Drag and drop functionality
+        uploadArea.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            uploadArea.style.borderColor = var('--primary-color');
+            uploadArea.style.backgroundColor = 'rgba(66, 133, 244, 0.1)';
+        });
+
+        uploadArea.addEventListener('dragleave', function() {
+            uploadArea.style.borderColor = '#ccc';
+            uploadArea.style.backgroundColor = 'transparent';
+        });
+
+        uploadArea.addEventListener('drop', function(e) {
+            e.preventDefault();
+            uploadArea.style.borderColor = '#ccc';
+            uploadArea.style.backgroundColor = 'transparent';
+            
+            if (e.dataTransfer.files.length > 0) {
+                const file = e.dataTransfer.files[0];
+                if (file.type === 'application/pdf') {
+                    showPreview(file);
+                } else {
+                    alert('Please drop a PDF file.');
+                }
+            }
+        });
+
+        // Show preview of selected PDF
+        function showPreview(file) {
+            uploadArea.style.display = 'none';
+            previewContainer.style.display = 'block';
+            
+            // Initialize PDF.js
+            const reader = new FileReader();
+            reader.onload = function() {
+                const typedarray = new Uint8Array(this.result);
+                
+                // Load the PDF document
+                pdfjsLib.getDocument(typedarray).promise.then(function(pdf) {
+                    // Show first 3 pages as preview
+                    const previewPages = Math.min(pdf.numPages, 3);
+                    
+                    for (let i = 1; i <= previewPages; i++) {
+                        pdf.getPage(i).then(function(page) {
+                            const viewport = page.getViewport({ scale: 0.5 });
+                            const canvas = document.createElement('canvas');
+                            const context = canvas.getContext('2d');
+                            canvas.height = viewport.height;
+                            canvas.width = viewport.width;
+                            
+                            const renderContext = {
+                                canvasContext: context,
+                                viewport: viewport
+                            };
+                            
+                            page.render(renderContext).promise.then(function() {
+                                const img = document.createElement('img');
+                                img.src = canvas.toDataURL('image/jpeg', getQualityValue());
+                                img.alt = `Page ${i} preview`;
+                                
+                                const previewImage = document.createElement('div');
+                                previewImage.className = 'preview-image';
+                                previewImage.appendChild(img);
+                                
+                                previewImages.appendChild(previewImage);
+                            });
+                        });
+                    }
+                });
+            };
+            reader.readAsArrayBuffer(file);
+        }
+
+        // Get quality value based on compression level
+        function getQualityValue() {
+            const level = parseInt(compressionLevel.value);
+            return [0.7, 0.85, 1][level]; // Low: 0.7, Medium: 0.85, High: 1
+        }
+
+        // Convert to PowerPoint
+        convertBtn.addEventListener('click', function() {
+            previewContainer.style.display = 'none';
+            progressContainer.style.display = 'block';
+            
+            // Simulate conversion progress
+            let progress = 0;
+            const interval = setInterval(function() {
+                progress += 5;
+                progressBar.style.width = `${progress}%`;
+                
+                if (progress >= 30) {
+                    statusText.textContent = 'Extracting content from PDF...';
+                }
+                if (progress >= 60) {
+                    statusText.textContent = 'Optimizing images...';
+                }
+                if (progress >= 80) {
+                    statusText.textContent = 'Creating PowerPoint file...';
+                }
+                
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    setTimeout(showResult, 500);
+                }
+            }, 200);
+        });
+
+        // Show conversion result
+        function showResult() {
+            progressContainer.style.display = 'none';
+            resultContainer.style.display = 'block';
+            
+            // In a real implementation, this would be the actual download link
+            downloadBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('In a real implementation, this would download the PowerPoint file.');
+            });
+        }
+
+        // Cancel conversion
+        cancelBtn.addEventListener('click', function() {
+            previewContainer.style.display = 'none';
+            uploadArea.style.display = 'block';
+            previewImages.innerHTML = '';
+            fileInput.value = '';
+        });
+
+        // Convert another file
+        newFileBtn.addEventListener('click', function() {
+            resultContainer.style.display = 'none';
+            uploadArea.style.display = 'block';
+            previewImages.innerHTML = '';
+            fileInput.value = '';
+        });
+
+        // Initialize AdSense
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+
+    <!-- Structured data for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "PDF to PowerPoint Converter",
+      "url": "https://yourwebsite.com/pdf-to-ppt",
+      "description": "Free online tool to convert PDF files to editable PowerPoint presentations with image optimization options.",
+      "applicationCategory": "DocumentConverter",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "creator": {
+        "@type": "Organization",
+        "name": "PDF2PPT"
+      }
+    }
+    </script>
+</body>
+</html>
