@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Online Image to Text Converter | Extract Text from Images</title>
+    <meta name="description" content="Convert images to text online for free. Extract text from scanned documents, screenshots, and photos using our accurate OCR tool.">
+    <meta name="keywords" content="image to text, OCR online, extract text from image, scanned text converter, photo to text">
+    <meta name="author" content="Text Tools Pro">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Free Online Image to Text Converter | Extract Text from Images">
+    <meta property="og:description" content="Convert images to editable text instantly with our free OCR tool. Works with scanned documents and photos.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://texttoolspro.com/image-to-text">
+    <meta property="og:image" content="https://texttoolspro.com/images/ocr-tool-preview.jpg">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://texttoolspro.com/image-to-text">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tesseract.js for OCR -->
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js"></script>
+    
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID" crossorigin="anonymous"></script>
+    
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary-color: #4285f4;
+            --secondary-color: #34a853;
+            --accent-color: #ea4335;
+            --light-gray: #f8f9fa;
+            --dark-gray: #343a40;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-gray);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .upload-area {
+            border: 2px dashed #ccc;
+            padding: 3rem;
+            text-align: center;
+            background: rgba(255,255,255,0.7);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .upload-area:hover {
+            border-color: var(--primary-color);
+            background: rgba(66, 133, 244, 0.05);
+        }
+        
+        #image-preview {
+            max-width: 100%;
+            max-height: 400px;
+            display: none;
+            margin: 20px auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        #text-result {
+            min-height: 200px;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+            background: white;
+            white-space: pre-wrap;
+        }
+        
+        .progress {
+            height: 25px;
+            margin: 15px 0;
+            display: none;
+        }
+        
+        .progress-bar {
+            transition: width 0.3s;
+        }
+        
+        .language-selector {
+            margin: 15px 0;
+        }
+        
+        .ad-container {
+            background: #f1f3f4;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .upload-area {
+                padding: 2rem 1rem;
+            }
+            
+            .tool-btn {
+                margin-bottom: 10px;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-font"></i> Text Tools Pro
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Image to Text</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Tools</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container my-4">
+        <!-- Top Ad Banner -->
+        <div class="ad-container">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                 data-ad-slot="YOUR_TOP_AD_SLOT"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+        
+        <!-- OCR Tool -->
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h1 class="card-title mb-4"><i class="fas fa-image"></i> Image to Text Converter</h1>
+                <p class="lead">Extract text from images, scanned documents, and screenshots</p>
+                
+                <!-- Upload Section -->
+                <div id="upload-section">
+                    <div class="upload-area" id="drop-zone">
+                        <i class="fas fa-cloud-upload-alt fa-3x mb-3" style="color: var(--primary-color);"></i>
+                        <h3>Drag & Drop Image Here</h3>
+                        <p class="text-muted">or click to select a file (JPG, PNG, PDF)</p>
+                        <input type="file" id="image-upload" accept="image/*,.pdf" class="d-none">
+                        <button class="btn btn-primary btn-lg mt-3" id="browse-btn">
+                            <i class="fas fa-folder-open me-2"></i> Select Image
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Editor Section -->
+                <div id="editor-section" class="mt-4" style="display: none;">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <img id="image-preview" class="img-fluid">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="language-selector">
+                                <label for="language-select" class="form-label">Select Language:</label>
+                                <select id="language-select" class="form-select">
+                                    <option value="eng">English</option>
+                                    <option value="spa">Spanish</option>
+                                    <option value="fra">French</option>
+                                    <option value="deu">German</option>
+                                    <option value="chi_sim">Chinese (Simplified)</option>
+                                    <option value="ara">Arabic</option>
+                                    <option value="rus">Russian</option>
+                                    <option value="por">Portuguese</option>
+                                    <option value="hin">Hindi</option>
+                                </select>
+                            </div>
+                            
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped progress-bar-animated" 
+                                     role="progressbar" style="width: 0%"></div>
+                            </div>
+                            
+                            <button class="btn btn-primary" id="extract-btn">
+                                <i class="fas fa-magic me-2"></i> Extract Text
+                            </button>
+                            
+                            <div class="mt-3">
+                                <label class="form-label">Extracted Text:</label>
+                                <div id="text-result" contenteditable="true">Text will appear here...</div>
+                            </div>
+                            
+                            <div class="d-flex flex-wrap mt-3">
+                                <button class="btn btn-success me-2 mb-2" id="copy-btn">
+                                    <i class="fas fa-copy me-2"></i> Copy Text
+                                </button>
+                                <button class="btn btn-outline-primary me-2 mb-2" id="download-txt-btn">
+                                    <i class="fas fa-download me-2"></i> Download as TXT
+                                </button>
+                                <button class="btn btn-outline-secondary mb-2" id="new-image-btn">
+                                    <i class="fas fa-redo me-2"></i> New Image
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Middle Ad Banner -->
+        <div class="ad-container">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                 data-ad-slot="YOUR_MIDDLE_AD_SLOT"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+        
+        <!-- Features Section -->
+        <div class="card shadow-sm mt-4">
+            <div class="card-body">
+                <h2 class="card-title mb-4"><i class="fas fa-star text-warning"></i> Why Use Our Image to Text Converter?</h2>
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <div class="text-center p-3">
+                            <div class="bg-primary bg-opacity-10 p-3 rounded-circle d-inline-block mb-3">
+                                <i class="fas fa-bolt fa-2x text-primary"></i>
+                            </div>
+                            <h5>Fast & Accurate</h5>
+                            <p>Uses advanced OCR technology to quickly extract text with high accuracy.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="text-center p-3">
+                            <div class="bg-success bg-opacity-10 p-3 rounded-circle d-inline-block mb-3">
+                                <i class="fas fa-language fa-2x text-success"></i>
+                            </div>
+                            <h5>Multiple Languages</h5>
+                            <p>Supports text extraction in English, Spanish, French, and more.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="text-center p-3">
+                            <div class="bg-info bg-opacity-10 p-3 rounded-circle d-inline-block mb-3">
+                                <i class="fas fa-lock fa-2x text-info"></i>
+                            </div>
+                            <h5>Privacy Focused</h5>
+                            <p>Your images are processed in your browser and never uploaded.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- How It Works Section -->
+        <div class="card shadow-sm mt-4">
+            <div class="card-body">
+                <h2 class="card-title mb-4"><i class="fas fa-question-circle"></i> How to Extract Text from Images</h2>
+                <ol class="list-group list-group-numbered">
+                    <li class="list-group-item border-0 ps-0">Upload your image by dragging & dropping or clicking "Select Image"</li>
+                    <li class="list-group-item border-0 ps-0">Select the language of the text in your image</li>
+                    <li class="list-group-item border-0 ps-0">Click "Extract Text" to start the OCR process</li>
+                    <li class="list-group-item border-0 ps-0">Copy the extracted text or download it as a TXT file</li>
+                </ol>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4 mt-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5>Text Tools Pro</h5>
+                    <p>Free online tools for all your text processing needs.</p>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h6>Tools</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white text-decoration-none">Image to Text</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">PDF to Text</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Text Converter</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h6>Company</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white text-decoration-none">About Us</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Contact</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Privacy</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h6>Subscribe to Newsletter</h6>
+                    <div class="input-group mb-3">
+                        <input type="email" class="form-control" placeholder="Your email">
+                        <button class="btn btn-primary" type="button">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4 bg-light">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; 2023 Text Tools Pro. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-white"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script>
+        // DOM Elements
+        const imageUpload = document.getElementById('image-upload');
+        const browseBtn = document.getElementById('browse-btn');
+        const dropZone = document.getElementById('drop-zone');
+        const uploadSection = document.getElementById('upload-section');
+        const editorSection = document.getElementById('editor-section');
+        const imagePreview = document.getElementById('image-preview');
+        const languageSelect = document.getElementById('language-select');
+        const extractBtn = document.getElementById('extract-btn');
+        const textResult = document.getElementById('text-result');
+        const copyBtn = document.getElementById('copy-btn');
+        const downloadTxtBtn = document.getElementById('download-txt-btn');
+        const newImageBtn = document.getElementById('new-image-btn');
+        const progressBar = document.querySelector('.progress');
+        const progressBarInner = document.querySelector('.progress-bar');
+        
+        // Variables
+        let currentImage = null;
+        
+        // Event Listeners
+        browseBtn.addEventListener('click', () => imageUpload.click());
+        imageUpload.addEventListener('change', handleFileSelect);
+        
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.style.borderColor = 'var(--primary-color)';
+            dropZone.style.backgroundColor = 'rgba(66, 133, 244, 0.1)';
+        });
+        
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.style.borderColor = '#ccc';
+            dropZone.style.backgroundColor = 'rgba(255,255,255,0.7)';
+        });
+        
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.style.borderColor = '#ccc';
+            dropZone.style.backgroundColor = 'rgba(255,255,255,0.7)';
+            
+            if (e.dataTransfer.files[0]) {
+                imageUpload.files = e.dataTransfer.files;
+                handleFileSelect({ target: imageUpload });
+            }
+        });
+        
+        extractBtn.addEventListener('click', extractText);
+        copyBtn.addEventListener('click', copyText);
+        downloadTxtBtn.addEventListener('click', downloadText);
+        newImageBtn.addEventListener('click', resetTool);
+        
+        // Functions
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            // Check if file is an image or PDF
+            if (!file.type.match('image.*') && !file.type.match('application/pdf')) {
+                alert('Please select an image file (JPG, PNG) or PDF.');
+                return;
+            }
+            
+            // For PDFs, we'd need additional processing in a real implementation
+            if (file.type.match('application/pdf')) {
+                alert('PDF processing would require additional libraries in a full implementation.');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                currentImage = e.target.result;
+                imagePreview.src = currentImage;
+                imagePreview.style.display = 'block';
+                uploadSection.style.display = 'none';
+                editorSection.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }
+        
+        function extractText() {
+            if (!currentImage) {
+                alert('Please upload an image first.');
+                return;
+            }
+            
+            // Show progress bar
+            progressBar.style.display = 'block';
+            progressBarInner.style.width = '0%';
+            progressBarInner.textContent = 'Initializing...';
+            
+            // Get selected language
+            const lang = languageSelect.value;
+            
+            // Use Tesseract.js for OCR
+            Tesseract.recognize(
+                currentImage,
+                lang,
+                {
+                    logger: m => {
+                        if (m.status === 'recognizing text') {
+                            progressBarInner.style.width = `${Math.round(m.progress * 100)}%`;
+                            progressBarInner.textContent = `Processing: ${Math.round(m.progress * 100)}%`;
+                        }
+                    }
+                }
+            ).then(({ data: { text } }) => {
+                textResult.textContent = text;
+                progressBarInner.style.width = '100%';
+                progressBarInner.textContent = 'Complete!';
+                
+                // Hide progress bar after a delay
+                setTimeout(() => {
+                    progressBar.style.display = 'none';
+                }, 2000);
+            }).catch(err => {
+                console.error('OCR Error:', err);
+                textResult.textContent = 'Error extracting text. Please try another image.';
+                progressBar.style.display = 'none';
+            });
+        }
+        
+        function copyText() {
+            if (!textResult.textContent || textResult.textContent === 'Text will appear here...') {
+                alert('No text to copy. Please extract text first.');
+                return;
+            }
+            
+            navigator.clipboard.writeText(textResult.textContent)
+                .then(() => {
+                    const originalText = copyBtn.innerHTML;
+                    copyBtn.innerHTML = '<i class="fas fa-check me-2"></i> Copied!';
+                    setTimeout(() => {
+                        copyBtn.innerHTML = originalText;
+                    }, 2000);
+                })
+                .catch(err => {
+                    console.error('Copy failed:', err);
+                    alert('Failed to copy text. Please try again.');
+                });
+        }
+        
+        function downloadText() {
+            if (!textResult.textContent || textResult.textContent === 'Text will appear here...') {
+                alert('No text to download. Please extract text first.');
+                return;
+            }
+            
+            const blob = new Blob([textResult.textContent], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'extracted-text.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+        
+        function resetTool() {
+            imageUpload.value = '';
+            currentImage = null;
+            imagePreview.style.display = 'none';
+            textResult.textContent = 'Text will appear here...';
+            uploadSection.style.display = 'block';
+            editorSection.style.display = 'none';
+            progressBar.style.display = 'none';
+        }
+    </script>
+    
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Image to Text Converter",
+      "description": "Extract text from images and scanned documents using advanced OCR technology.",
+      "url": "https://texttoolspro.com/image-to-text",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "creator": {
+        "@type": "Organization",
+        "name": "Text Tools Pro"
+      }
+    }
+    </script>
+</body>
+</html>
