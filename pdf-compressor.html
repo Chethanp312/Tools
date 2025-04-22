@@ -3,1026 +3,805 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF Compressor & Resume Builder</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="description" content="Free online tool to compress your images while maintaining quality. Reduce file size for JPG, PNG, and WebP images quickly and easily.">
+    <meta name="keywords" content="image compressor, compress images, reduce image size, online image optimizer, JPG compressor, PNG compressor, WebP converter">
+    <meta name="author" content="ImageCompressPro">
+    <meta property="og:title" content="Free Online Image Compression Tool">
+    <meta property="og:description" content="Compress your images online for free. Reduce file size without losing quality.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.yourimagecompressor.com">
+    <meta property="og:image" content="https://www.yourimagecompressor.com/preview.jpg">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.yourimagecompressor.com">
+    
+    <title>Free Online Image Compression Tool | Optimize JPG, PNG, WebP</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Online Image Compressor",
+      "url": "https://www.yourimagecompressor.com",
+      "description": "Free online tool to compress your images while maintaining quality",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+    
     <style>
         :root {
-            --primary: #4a6bff;
-            --secondary: #00c9a7;
-            --dark: #2c3e50;
-            --light: #f8f9fa;
-            --danger: #ff4757;
-            --gray: #7f8c8d;
-            --border: #e0e0e0;
+            --primary-color: #4285f4;
+            --secondary-color: #34a853;
+            --accent-color: #ea4335;
+            --light-gray: #f5f5f5;
+            --dark-gray: #333;
+            --medium-gray: #757575;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --border-radius: 8px;
         }
-
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f5f7ff;
-            color: var(--dark);
+            font-family: 'Roboto', sans-serif;
             line-height: 1.6;
+            color: var(--dark-gray);
+            background-color: #f9f9f9;
+            padding: 0;
+            margin: 0;
         }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
+        
         header {
             background-color: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 20px 0;
+            box-shadow: var(--shadow);
+            padding: 1rem 0;
             position: sticky;
             top: 0;
             z-index: 100;
         }
-
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
         .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-
+        
         .logo {
-            font-size: 24px;
+            font-size: 1.5rem;
             font-weight: 700;
-            color: var(--primary);
+            color: var(--primary-color);
             text-decoration: none;
         }
-
+        
         .logo span {
-            color: var(--secondary);
+            color: var(--accent-color);
         }
-
+        
         nav ul {
             display: flex;
             list-style: none;
         }
-
+        
         nav ul li {
-            margin-left: 20px;
+            margin-left: 1.5rem;
         }
-
+        
         nav ul li a {
             text-decoration: none;
-            color: var(--dark);
+            color: var(--dark-gray);
             font-weight: 500;
             transition: color 0.3s;
         }
-
+        
         nav ul li a:hover {
-            color: var(--primary);
+            color: var(--primary-color);
         }
-
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            color: var(--dark);
+        
+        .ad-container {
+            background-color: var(--light-gray);
+            padding: 1rem;
+            margin: 1rem 0;
+            text-align: center;
+            border-radius: var(--border-radius);
         }
-
+        
         main {
-            margin: 30px 0;
+            padding: 2rem 0;
         }
-
-        .tabs {
-            display: flex;
-            margin-bottom: 20px;
-            border-bottom: 1px solid var(--border);
+        
+        .hero {
+            text-align: center;
+            margin-bottom: 2rem;
         }
-
-        .tab-btn {
-            padding: 12px 20px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-weight: 600;
-            color: var(--gray);
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s;
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark-gray);
         }
-
-        .tab-btn.active {
-            color: var(--primary);
-            border-bottom: 3px solid var(--primary);
+        
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--medium-gray);
+            max-width: 700px;
+            margin: 0 auto 1.5rem;
         }
-
-        .tab-content {
-            display: none;
+        
+        .compressor-container {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 2rem;
+            margin-bottom: 2rem;
         }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        /* PDF Compressor Styles */
-        .upload-area {
-            border: 2px dashed var(--border);
-            border-radius: 8px;
-            padding: 40px 20px;
+        
+        .drop-area {
+            border: 2px dashed var(--medium-gray);
+            border-radius: var(--border-radius);
+            padding: 3rem 1rem;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s;
-            margin-bottom: 20px;
-            background-color: white;
+            margin-bottom: 1.5rem;
         }
-
-        .upload-area:hover {
-            border-color: var(--primary);
-            background-color: rgba(74, 107, 255, 0.05);
+        
+        .drop-area:hover {
+            border-color: var(--primary-color);
+            background-color: rgba(66, 133, 244, 0.05);
         }
-
-        .upload-area i {
-            font-size: 48px;
-            color: var(--primary);
-            margin-bottom: 15px;
+        
+        .drop-area.highlight {
+            border-color: var(--primary-color);
+            background-color: rgba(66, 133, 244, 0.1);
         }
-
-        .upload-area h3 {
-            margin-bottom: 10px;
-            font-weight: 500;
+        
+        .drop-area i {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
         }
-
-        .upload-area p {
-            color: var(--gray);
-            margin-bottom: 15px;
+        
+        .drop-area p {
+            margin-bottom: 0.5rem;
         }
-
-        #pdfInput {
-            display: none;
-        }
-
+        
         .btn {
             display: inline-block;
-            background-color: var(--primary);
+            background-color: var(--primary-color);
             color: white;
-            padding: 12px 24px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 500;
+            padding: 0.8rem 1.5rem;
             border: none;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+            font-weight: 500;
             cursor: pointer;
             transition: background-color 0.3s;
+            text-decoration: none;
         }
-
+        
         .btn:hover {
-            background-color: #3a5bef;
+            background-color: #3367d6;
         }
-
+        
         .btn-secondary {
-            background-color: var(--secondary);
+            background-color: var(--medium-gray);
         }
-
+        
         .btn-secondary:hover {
-            background-color: #00b894;
+            background-color: #616161;
         }
-
-        .btn-danger {
-            background-color: var(--danger);
+        
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
         }
-
-        .btn-danger:hover {
-            background-color: #ff3345;
+        
+        .control-group {
+            flex: 1;
+            min-width: 200px;
         }
-
-        .compression-options {
-            background-color: white;
-            border-radius: 8px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        }
-
-        .compression-options h3 {
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
+        
         label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 0.5rem;
             font-weight: 500;
         }
-
-        input[type="range"] {
+        
+        select, input[type="range"] {
             width: 100%;
-            margin-bottom: 10px;
-        }
-
-        .range-value {
-            font-weight: 600;
-            color: var(--primary);
-        }
-
-        /* Resume Builder Styles */
-        .resume-form {
-            background-color: white;
-            border-radius: 8px;
-            padding: 25px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        }
-
-        .form-section {
-            margin-bottom: 25px;
-        }
-
-        .form-section h3 {
-            margin-bottom: 15px;
-            font-weight: 600;
-            color: var(--dark);
-            border-bottom: 2px solid var(--border);
-            padding-bottom: 8px;
-        }
-
-        input, textarea, select {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid var(--border);
-            border-radius: 6px;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
             font-family: inherit;
-            font-size: 16px;
-            transition: border 0.3s;
         }
-
-        input:focus, textarea:focus, select:focus {
-            border-color: var(--primary);
-            outline: none;
+        
+        input[type="range"] {
+            padding: 0;
+            -webkit-appearance: none;
+            height: 8px;
+            background: #ddd;
+            border-radius: 4px;
         }
-
-        textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-
-        .add-btn {
-            background-color: var(--secondary);
-            color: white;
-            border: none;
+        
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            background: var(--primary-color);
             border-radius: 50%;
-            width: 36px;
-            height: 36px;
-            font-size: 18px;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-left: auto;
         }
-
-        .experience-item, .education-item {
-            background-color: var(--light);
-            padding: 15px;
-            border-radius: 6px;
-            margin-bottom: 15px;
-            position: relative;
-        }
-
-        .remove-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: var(--danger);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 28px;
-            height: 28px;
-            font-size: 14px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* Resume Preview Styles */
-        .resume-preview {
-            background-color: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
-            margin-top: 30px;
-        }
-
-        .resume-header {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        .resume-header h2 {
-            font-size: 28px;
-            color: var(--dark);
-            margin-bottom: 5px;
-        }
-
-        .resume-header p {
-            color: var(--primary);
-            font-weight: 500;
-            margin-bottom: 15px;
-        }
-
-        .contact-info {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-top: 10px;
-        }
-
-        .contact-info span {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            color: var(--gray);
-            font-size: 14px;
-        }
-
-        .resume-section {
-            margin-bottom: 25px;
-        }
-
-        .section-title {
-            font-size: 20px;
-            color: var(--primary);
-            margin-bottom: 15px;
-            padding-bottom: 5px;
-            border-bottom: 2px solid var(--border);
-        }
-
-        .experience-entry, .education-entry {
-            margin-bottom: 20px;
-        }
-
-        .entry-header {
+        
+        .range-labels {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 5px;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--medium-gray);
         }
-
-        .entry-title {
-            font-weight: 600;
-            font-size: 18px;
-            color: var(--dark);
+        
+        .results {
+            display: none;
+            margin-top: 2rem;
         }
-
-        .entry-date {
-            color: var(--gray);
-            font-size: 14px;
+        
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
         }
-
-        .entry-subtitle {
-            font-style: italic;
-            color: var(--gray);
-            margin-bottom: 10px;
+        
+        .result-card {
+            border: 1px solid #eee;
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            text-align: center;
         }
-
-        .entry-description {
-            font-size: 15px;
-            line-height: 1.6;
+        
+        .result-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: var(--border-radius);
+            margin-bottom: 1rem;
         }
-
-        .skills-list {
+        
+        .result-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+        
+        .download-btn {
+            display: block;
+            width: 100%;
+            margin-top: 1rem;
+        }
+        
+        .savings {
+            color: var(--secondary-color);
+            font-weight: 700;
+        }
+        
+        footer {
+            background-color: var(--dark-gray);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .footer-links {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
         }
-
-        .skill-tag {
-            background-color: var(--light);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 14px;
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
         }
-
-        /* Download Options */
-        .download-options {
-            display: flex;
-            gap: 15px;
-            margin-top: 25px;
-            flex-wrap: wrap;
+        
+        .footer-links a:hover {
+            text-decoration: underline;
         }
-
-        /* Responsive Styles */
+        
+        .copyright {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
         @media (max-width: 768px) {
             .header-content {
                 flex-direction: column;
-                text-align: center;
             }
-
+            
             nav ul {
-                margin-top: 15px;
-                justify-content: center;
+                margin-top: 1rem;
             }
-
+            
             nav ul li {
-                margin: 0 10px;
+                margin-left: 1rem;
+                margin-right: 1rem;
             }
-
-            .download-options {
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .controls {
                 flex-direction: column;
-            }
-
-            .btn {
-                width: 100%;
             }
         }
-
+        
         @media (max-width: 480px) {
-            .mobile-menu-btn {
-                display: block;
+            .compressor-container {
+                padding: 1rem;
             }
-
-            nav {
-                display: none;
-                width: 100%;
-                margin-top: 15px;
+            
+            .drop-area {
+                padding: 2rem 1rem;
             }
-
-            nav.active {
-                display: block;
+            
+            .result-grid {
+                grid-template-columns: 1fr;
             }
-
-            nav ul {
-                flex-direction: column;
-            }
-
-            nav ul li {
-                margin: 5px 0;
-            }
+        }
+        
+        /* Loading spinner */
+        .spinner {
+            display: none;
+            width: 40px;
+            height: 40px;
+            margin: 0 auto;
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top-color: var(--primary-color);
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Tooltip */
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: help;
+        }
+        
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.9rem;
+            font-weight: normal;
+        }
+        
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="container">
-            <div class="header-content">
-                <a href="#" class="logo">PDF<span>Tools</span></a>
-                <button class="mobile-menu-btn" id="mobileMenuBtn">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <nav id="mainNav">
-                    <ul>
-                        <li><a href="#" class="tab-link" data-tab="compress">PDF Compressor</a></li>
-                        <li><a href="#" class="tab-link" data-tab="resume">Resume Builder</a></li>
-                    </ul>
-                </nav>
-            </div>
+        <div class="container header-content">
+            <a href="/" class="logo">Image<span>Compress</span>Pro</a>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/blog">Blog</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
-
-    <main class="container">
-        <div class="tabs">
-            <button class="tab-btn active" data-tab="compress">PDF Compressor</button>
-            <button class="tab-btn" data-tab="resume">Resume Builder</button>
+    
+    <div class="container">
+        <!-- Top Ad Unit -->
+        <div class="ad-container">
+            <!-- Replace with your Google AdSense code -->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-app-pub-8129307637152388/2777056161"
+                crossorigin="anonymous"></script>
+            <!-- ImageCompressor_Top -->
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-app-pub-8129307637152388/2777056161"
+                data-ad-slot="01031984"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
         </div>
-
-        <!-- PDF Compressor Tab -->
-        <div id="compress" class="tab-content active">
-            <div class="upload-area" id="pdfUploadArea">
-                <i class="fas fa-file-pdf"></i>
-                <h3>Upload PDF File</h3>
-                <p>Drag & drop your PDF here or click to browse</p>
-                <input type="file" id="pdfInput" accept=".pdf">
-                <button class="btn" id="selectPdfBtn">Select PDF</button>
-            </div>
-
-            <div class="compression-options">
-                <h3>Compression Settings</h3>
-                <div class="form-group">
-                    <label for="compressionLevel">Compression Level: <span id="compressionValue" class="range-value">Medium</span></label>
-                    <input type="range" id="compressionLevel" min="0" max="2" value="1" step="1">
+        
+        <main>
+            <section class="hero">
+                <h1>Free Online Image Compression Tool</h1>
+                <p>Reduce your image file size without losing quality. Supports JPG, PNG, and WebP formats. Fast, secure, and completely free!</p>
+            </section>
+            
+            <section class="compressor-container">
+                <div class="drop-area" id="dropArea">
+                    <i>📁</i>
+                    <h3>Drag & Drop Your Images Here</h3>
+                    <p>or</p>
+                    <input type="file" id="fileInput" accept="image/*" multiple style="display: none;">
+                    <button class="btn" id="selectFilesBtn">Select Files</button>
+                    <p>Supports: JPG, PNG, WebP</p>
                 </div>
-                <div class="form-group">
-                    <label for="qualityLevel">Image Quality (if any): <span id="qualityValue" class="range-value">75%</span></label>
-                    <input type="range" id="qualityLevel" min="10" max="100" value="75">
+                
+                <div class="controls">
+                    <div class="control-group">
+                        <label for="format">Output Format</label>
+                        <select id="format">
+                            <option value="original">Original Format</option>
+                            <option value="jpeg">JPEG</option>
+                            <option value="png">PNG</option>
+                            <option value="webp">WebP</option>
+                        </select>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label for="quality">Compression Level <span class="tooltip">ℹ️<span class="tooltiptext">Higher quality means larger file size</span></span></label>
+                        <input type="range" id="quality" min="0" max="100" value="80">
+                        <div class="range-labels">
+                            <span>Smaller File</span>
+                            <span>Balanced</span>
+                            <span>Better Quality</span>
+                        </div>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label for="resize">Resize Image (%)</label>
+                        <input type="range" id="resize" min="10" max="100" value="100">
+                        <div class="range-labels">
+                            <span>10%</span>
+                            <span>50%</span>
+                            <span>100%</span>
+                        </div>
+                    </div>
                 </div>
-            </div>
-
-            <div class="action-buttons">
-                <button class="btn btn-secondary" id="compressBtn" disabled>
-                    <i class="fas fa-compress-alt"></i> Compress PDF
-                </button>
-                <button class="btn btn-danger" id="resetPdfBtn" disabled>
-                    <i class="fas fa-trash"></i> Clear
-                </button>
-            </div>
-
-            <div id="pdfInfo" style="margin-top: 20px; display: none;">
-                <h3>File Information</h3>
-                <p>Original Size: <span id="originalSize">0 KB</span></p>
-                <p>Compressed Size: <span id="compressedSize">0 KB</span></p>
-                <p>Reduction: <span id="reductionPercent">0%</span></p>
-            </div>
+                
+                <div class="actions">
+                    <button class="btn" id="compressBtn" disabled>Compress Images</button>
+                    <button class="btn btn-secondary" id="resetBtn">Reset</button>
+                </div>
+                
+                <div class="spinner" id="spinner"></div>
+                
+                <div class="results" id="results">
+                    <h2>Compression Results</h2>
+                    <div class="result-grid" id="resultGrid"></div>
+                    <button class="btn" id="downloadAllBtn">Download All</button>
+                </div>
+            </section>
+            
+            <section class="info-section">
+                <h2>How to Compress Images</h2>
+                <ol>
+                    <li>Upload your images by dragging and dropping or clicking "Select Files"</li>
+                    <li>Choose your desired output format and compression level</li>
+                    <li>Click "Compress Images" to start the process</li>
+                    <li>Download your optimized images individually or all at once</li>
+                </ol>
+                
+                <h2>Why Compress Images?</h2>
+                <p>Image compression helps reduce file sizes while maintaining visual quality. This leads to:</p>
+                <ul>
+                    <li>Faster website loading times</li>
+                    <li>Reduced bandwidth usage</li>
+                    <li>Improved SEO rankings</li>
+                    <li>Better user experience</li>
+                    <li>Storage space savings</li>
+                </ul>
+            </section>
+        </main>
+        
+        <!-- Bottom Ad Unit -->
+        <div class="ad-container">
+            <!-- Replace with your Google AdSense code -->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-app-pub-8129307637152388/2777056161"
+                crossorigin="anonymous"></script>
+            <!-- ImageCompressor_Bottom -->
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-app-pub-8129307637152388/2777056161"
+                data-ad-slot="02031984"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
         </div>
-
-        <!-- Resume Builder Tab -->
-        <div id="resume" class="tab-content">
-            <div class="resume-form">
-                <div class="form-section">
-                    <h3>Personal Information</h3>
-                    <div class="form-group">
-                        <label for="fullName">Full Name</label>
-                        <input type="text" id="fullName" placeholder="John Doe">
-                    </div>
-                    <div class="form-group">
-                        <label for="profession">Profession</label>
-                        <input type="text" id="profession" placeholder="Software Engineer">
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" placeholder="john@example.com">
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Phone</label>
-                        <input type="tel" id="phone" placeholder="(123) 456-7890">
-                    </div>
-                    <div class="form-group">
-                        <label for="address">Address</label>
-                        <input type="text" id="address" placeholder="New York, USA">
-                    </div>
-                    <div class="form-group">
-                        <label for="linkedin">LinkedIn</label>
-                        <input type="url" id="linkedin" placeholder="https://linkedin.com/in/username">
-                    </div>
-                    <div class="form-group">
-                        <label for="github">GitHub</label>
-                        <input type="url" id="github" placeholder="https://github.com/username">
-                    </div>
-                    <div class="form-group">
-                        <label for="summary">Professional Summary</label>
-                        <textarea id="summary" placeholder="Describe your professional background and skills"></textarea>
-                    </div>
-                </div>
-
-                <div class="form-section">
-                    <div class="section-header">
-                        <h3>Work Experience</h3>
-                        <button class="add-btn" id="addExperience">+</button>
-                    </div>
-                    <div id="experienceContainer"></div>
-                </div>
-
-                <div class="form-section">
-                    <div class="section-header">
-                        <h3>Education</h3>
-                        <button class="add-btn" id="addEducation">+</button>
-                    </div>
-                    <div id="educationContainer"></div>
-                </div>
-
-                <div class="form-section">
-                    <label for="skills">Skills (comma separated)</label>
-                    <input type="text" id="skills" placeholder="JavaScript, React, Project Management">
-                </div>
-
-                <button class="btn btn-secondary" id="generateResume">
-                    <i class="fas fa-sync-alt"></i> Update Resume
-                </button>
+    </div>
+    
+    <footer>
+        <div class="container footer-content">
+            <a href="/" class="logo">Image<span>Compress</span>Pro</a>
+            <div class="footer-links">
+                <a href="/privacy">Privacy Policy</a>
+                <a href="/terms">Terms of Service</a>
+                <a href="/faq">FAQ</a>
+                <a href="/contact">Contact Us</a>
             </div>
-
-            <div class="resume-preview" id="resumePreview">
-                <div class="resume-header">
-                    <h2 id="previewName">Your Name</h2>
-                    <p id="previewProfession">Your Profession</p>
-                    <div class="contact-info" id="previewContact">
-                        <!-- Contact info will be added here -->
-                    </div>
-                </div>
-
-                <div class="resume-section">
-                    <h3 class="section-title">Summary</h3>
-                    <p id="previewSummary">Enter your professional summary in the form to see it here.</p>
-                </div>
-
-                <div class="resume-section">
-                    <h3 class="section-title">Work Experience</h3>
-                    <div id="previewExperience">
-                        <p>Add your work experience in the form to see it here.</p>
-                    </div>
-                </div>
-
-                <div class="resume-section">
-                    <h3 class="section-title">Education</h3>
-                    <div id="previewEducation">
-                        <p>Add your education details in the form to see it here.</p>
-                    </div>
-                </div>
-
-                <div class="resume-section">
-                    <h3 class="section-title">Skills</h3>
-                    <div class="skills-list" id="previewSkills">
-                        <!-- Skills will be added here -->
-                    </div>
-                </div>
-            </div>
-
-            <div class="download-options">
-                <button class="btn" id="downloadPdf">
-                    <i class="fas fa-file-pdf"></i> Download PDF
-                </button>
-                <button class="btn btn-secondary" id="downloadDoc">
-                    <i class="fas fa-file-word"></i> Download DOC
-                </button>
-                <button class="btn" id="downloadTxt">
-                    <i class="fas fa-file-alt"></i> Download TXT
-                </button>
-            </div>
+            <p class="copyright">© 2023 ImageCompressPro. All rights reserved.</p>
         </div>
-    </main>
-
-    <!-- PDF.js Library for PDF Compression -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
+    </footer>
+    
     <script>
-        // Tab Switching
-        const tabBtns = document.querySelectorAll('.tab-btn');
-        const tabContents = document.querySelectorAll('.tab-content');
-        const tabLinks = document.querySelectorAll('.tab-link');
-
-        tabBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const tabId = btn.getAttribute('data-tab');
-                
-                tabBtns.forEach(b => b.classList.remove('active'));
-                tabContents.forEach(c => c.classList.remove('active'));
-                
-                btn.classList.add('active');
-                document.getElementById(tabId).classList.add('active');
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM Elements
+            const dropArea = document.getElementById('dropArea');
+            const fileInput = document.getElementById('fileInput');
+            const selectFilesBtn = document.getElementById('selectFilesBtn');
+            const compressBtn = document.getElementById('compressBtn');
+            const resetBtn = document.getElementById('resetBtn');
+            const resultsSection = document.getElementById('results');
+            const resultGrid = document.getElementById('resultGrid');
+            const downloadAllBtn = document.getElementById('downloadAllBtn');
+            const spinner = document.getElementById('spinner');
+            
+            // Variables
+            let files = [];
+            let compressedFiles = [];
+            
+            // Event Listeners
+            selectFilesBtn.addEventListener('click', () => fileInput.click());
+            
+            fileInput.addEventListener('change', function(e) {
+                files = Array.from(e.target.files);
+                updateUI();
             });
-        });
-
-        tabLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
+            
+            dropArea.addEventListener('dragover', function(e) {
                 e.preventDefault();
-                const tabId = link.getAttribute('data-tab');
-                
-                tabBtns.forEach(b => b.classList.remove('active'));
-                tabContents.forEach(c => c.classList.remove('active'));
-                
-                document.querySelector(`.tab-btn[data-tab="${tabId}"]`).classList.add('active');
-                document.getElementById(tabId).classList.add('active');
+                dropArea.classList.add('highlight');
             });
-        });
-
-        // Mobile Menu Toggle
-        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
-            document.getElementById('mainNav').classList.toggle('active');
-        });
-
-        // PDF Compressor Functionality
-        const pdfInput = document.getElementById('pdfInput');
-        const pdfUploadArea = document.getElementById('pdfUploadArea');
-        const selectPdfBtn = document.getElementById('selectPdfBtn');
-        const compressBtn = document.getElementById('compressBtn');
-        const resetPdfBtn = document.getElementById('resetPdfBtn');
-        const compressionLevel = document.getElementById('compressionLevel');
-        const compressionValue = document.getElementById('compressionValue');
-        const qualityLevel = document.getElementById('qualityLevel');
-        const qualityValue = document.getElementById('qualityValue');
-        const pdfInfo = document.getElementById('pdfInfo');
-        const originalSize = document.getElementById('originalSize');
-        const compressedSize = document.getElementById('compressedSize');
-        const reductionPercent = document.getElementById('reductionPercent');
-
-        let pdfFile = null;
-
-        // Update compression level display
-        compressionLevel.addEventListener('input', function() {
-            const levels = ['Low', 'Medium', 'High'];
-            compressionValue.textContent = levels[this.value];
-        });
-
-        // Update quality level display
-        qualityLevel.addEventListener('input', function() {
-            qualityValue.textContent = this.value + '%';
-        });
-
-        // Trigger file input when upload area is clicked
-        pdfUploadArea.addEventListener('click', () => pdfInput.click());
-        selectPdfBtn.addEventListener('click', () => pdfInput.click());
-
-        // Handle PDF file selection
-        pdfInput.addEventListener('change', function(e) {
-            if (e.target.files.length > 0) {
-                pdfFile = e.target.files[0];
-                originalSize.textContent = formatFileSize(pdfFile.size);
-                pdfInfo.style.display = 'block';
-                compressBtn.disabled = false;
-                resetPdfBtn.disabled = false;
-                pdfUploadArea.innerHTML = `
-                    <i class="fas fa-check-circle" style="color: var(--secondary);"></i>
-                    <h3>${pdfFile.name}</h3>
-                    <p>${formatFileSize(pdfFile.size)}</p>
-                `;
-            }
-        });
-
-        // Reset PDF selection
-        resetPdfBtn.addEventListener('click', function() {
-            pdfFile = null;
-            pdfInput.value = '';
-            pdfInfo.style.display = 'none';
-            compressBtn.disabled = true;
-            resetPdfBtn.disabled = true;
-            pdfUploadArea.innerHTML = `
-                <i class="fas fa-file-pdf"></i>
-                <h3>Upload PDF File</h3>
-                <p>Drag & drop your PDF here or click to browse</p>
-                <button class="btn" id="selectPdfBtn">Select PDF</button>
-            `;
-        });
-
-        // Compress PDF
-        compressBtn.addEventListener('click', async function() {
-            if (!pdfFile) return;
-
-            compressBtn.disabled = true;
-            compressBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Compressing...';
-
-            try {
-                // Simulate compression (actual compression would use PDF-lib or similar)
-                setTimeout(() => {
-                    const compressionRatio = [0.9, 0.7, 0.5][compressionLevel.value];
-                    const compressedFileSize = Math.round(pdfFile.size * compressionRatio);
-                    
-                    compressedSize.textContent = formatFileSize(compressedFileSize);
-                    reductionPercent.textContent = Math.round((1 - compressionRatio) * 100) + '%';
-                    
-                    // Create download link for "compressed" PDF (in a real app, use PDF-lib)
-                    const blob = new Blob([pdfFile], { type: 'application/pdf' });
-                    saveAs(blob, `compressed_${pdfFile.name}`);
-                    
-                    compressBtn.innerHTML = '<i class="fas fa-compress-alt"></i> Compress PDF';
+            
+            dropArea.addEventListener('dragleave', function() {
+                dropArea.classList.remove('highlight');
+            });
+            
+            dropArea.addEventListener('drop', function(e) {
+                e.preventDefault();
+                dropArea.classList.remove('highlight');
+                
+                if (e.dataTransfer.files.length) {
+                    files = Array.from(e.dataTransfer.files).filter(file => 
+                        file.type.startsWith('image/')
+                    );
+                    updateUI();
+                }
+            });
+            
+            compressBtn.addEventListener('click', compressImages);
+            resetBtn.addEventListener('click', resetTool);
+            downloadAllBtn.addEventListener('click', downloadAll);
+            
+            // Functions
+            function updateUI() {
+                if (files.length > 0) {
                     compressBtn.disabled = false;
-                }, 1500);
-            } catch (error) {
-                console.error('Compression error:', error);
-                alert('Failed to compress PDF. Please try again.');
-                compressBtn.innerHTML = '<i class="fas fa-compress-alt"></i> Compress PDF';
-                compressBtn.disabled = false;
-            }
-        });
-
-        // Helper function to format file size
-        function formatFileSize(bytes) {
-            if (bytes === 0) return '0 Bytes';
-            const k = 1024;
-            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-            const i = Math.floor(Math.log(bytes) / Math.log(k));
-            return parseFloat((bytes / Math.pow(k, i)).toFixed(2) + ' ' + sizes[i];
-        }
-
-        // Resume Builder Functionality
-        const addExperienceBtn = document.getElementById('addExperience');
-        const addEducationBtn = document.getElementById('addEducation');
-        const experienceContainer = document.getElementById('experienceContainer');
-        const educationContainer = document.getElementById('educationContainer');
-        const generateResumeBtn = document.getElementById('generateResume');
-        const downloadPdfBtn = document.getElementById('downloadPdf');
-        const downloadDocBtn = document.getElementById('downloadDoc');
-        const downloadTxtBtn = document.getElementById('downloadTxt');
-
-        let experienceCount = 0;
-        let educationCount = 0;
-
-        // Add experience section
-        addExperienceBtn.addEventListener('click', function() {
-            experienceCount++;
-            const experienceItem = document.createElement('div');
-            experienceItem.className = 'experience-item';
-            experienceItem.innerHTML = `
-                <button class="remove-btn" onclick="this.parentElement.remove()">×</button>
-                <div class="form-group">
-                    <label for="jobTitle${experienceCount}">Job Title</label>
-                    <input type="text" id="jobTitle${experienceCount}" placeholder="Software Developer">
-                </div>
-                <div class="form-group">
-                    <label for="company${experienceCount}">Company</label>
-                    <input type="text" id="company${experienceCount}" placeholder="Tech Corp Inc.">
-                </div>
-                <div class="form-group">
-                    <label for="jobLocation${experienceCount}">Location</label>
-                    <input type="text" id="jobLocation${experienceCount}" placeholder="New York, NY">
-                </div>
-                <div class="form-group">
-                    <label for="jobStartDate${experienceCount}">Start Date</label>
-                    <input type="text" id="jobStartDate${experienceCount}" placeholder="June 2018">
-                </div>
-                <div class="form-group">
-                    <label for="jobEndDate${experienceCount}">End Date</label>
-                    <input type="text" id="jobEndDate${experienceCount}" placeholder="Present">
-                </div>
-                <div class="form-group">
-                    <label for="jobDescription${experienceCount}">Description</label>
-                    <textarea id="jobDescription${experienceCount}" placeholder="Describe your responsibilities and achievements"></textarea>
-                </div>
-            `;
-            experienceContainer.appendChild(experienceItem);
-        });
-
-        // Add education section
-        addEducationBtn.addEventListener('click', function() {
-            educationCount++;
-            const educationItem = document.createElement('div');
-            educationItem.className = 'education-item';
-            educationItem.innerHTML = `
-                <button class="remove-btn" onclick="this.parentElement.remove()">×</button>
-                <div class="form-group">
-                    <label for="degree${educationCount}">Degree</label>
-                    <input type="text" id="degree${educationCount}" placeholder="Bachelor of Science">
-                </div>
-                <div class="form-group">
-                    <label for="institution${educationCount}">Institution</label>
-                    <input type="text" id="institution${educationCount}" placeholder="University of Technology">
-                </div>
-                <div class="form-group">
-                    <label for="educationLocation${educationCount}">Location</label>
-                    <input type="text" id="educationLocation${educationCount}" placeholder="Boston, MA">
-                </div>
-                <div class="form-group">
-                    <label for="educationYear${educationCount}">Year</label>
-                    <input type="text" id="educationYear${educationCount}" placeholder="2014 - 2018">
-                </div>
-                <div class="form-group">
-                    <label for="educationDescription${educationCount}">Description (optional)</label>
-                    <textarea id="educationDescription${educationCount}" placeholder="Thesis, honors, etc."></textarea>
-                </div>
-            `;
-            educationContainer.appendChild(educationItem);
-        });
-
-        // Generate resume preview
-        generateResumeBtn.addEventListener('click', function() {
-            // Personal Information
-            document.getElementById('previewName').textContent = document.getElementById('fullName').value || 'Your Name';
-            document.getElementById('previewProfession').textContent = document.getElementById('profession').value || 'Your Profession';
-            
-            // Contact Information
-            const contactInfo = document.getElementById('previewContact');
-            contactInfo.innerHTML = '';
-            
-            const email = document.getElementById('email').value;
-            const phone = document.getElementById('phone').value;
-            const address = document.getElementById('address').value;
-            const linkedin = document.getElementById('linkedin').value;
-            const github = document.getElementById('github').value;
-            
-            if (email) contactInfo.innerHTML += `<span><i class="fas fa-envelope"></i> ${email}</span>`;
-            if (phone) contactInfo.innerHTML += `<span><i class="fas fa-phone"></i> ${phone}</span>`;
-            if (address) contactInfo.innerHTML += `<span><i class="fas fa-map-marker-alt"></i> ${address}</span>`;
-            if (linkedin) contactInfo.innerHTML += `<span><i class="fab fa-linkedin"></i> ${linkedin.replace('https://', '')}</span>`;
-            if (github) contactInfo.innerHTML += `<span><i class="fab fa-github"></i> ${github.replace('https://', '')}</span>`;
-            
-            // Professional Summary
-            document.getElementById('previewSummary').textContent = document.getElementById('summary').value || 'Enter your professional summary in the form to see it here.';
-            
-            // Work Experience
-            const previewExperience = document.getElementById('previewExperience');
-            previewExperience.innerHTML = '';
-            
-            if (experienceCount === 0) {
-                previewExperience.innerHTML = '<p>Add your work experience in the form to see it here.</p>';
-            } else {
-                for (let i = 1; i <= experienceCount; i++) {
-                    const jobTitle = document.getElementById(`jobTitle${i}`);
-                    if (jobTitle) {
-                        const company = document.getElementById(`company${i}`).value || 'Company';
-                        const location = document.getElementById(`jobLocation${i}`).value;
-                        const startDate = document.getElementById(`jobStartDate${i}`).value || 'Start Date';
-                        const endDate = document.getElementById(`jobEndDate${i}`).value || 'End Date';
-                        const description = document.getElementById(`jobDescription${i}`).value;
-                        
-                        const experienceEntry = document.createElement('div');
-                        experienceEntry.className = 'experience-entry';
-                        experienceEntry.innerHTML = `
-                            <div class="entry-header">
-                                <h4 class="entry-title">${jobTitle.value || 'Job Title'}</h4>
-                                <span class="entry-date">${startDate} - ${endDate}</span>
-                            </div>
-                            <div class="entry-subtitle">${company}${location ? `, ${location}` : ''}</div>
-                            <div class="entry-description">${description || ''}</div>
-                        `;
-                        previewExperience.appendChild(experienceEntry);
-                    }
+                    dropArea.innerHTML = `
+                        <i>✅</i>
+                        <h3>${files.length} ${files.length === 1 ? 'File' : 'Files'} Ready</h3>
+                        <p>${files.map(file => file.name).join(', ')}</p>
+                        <button class="btn btn-secondary" id="changeFilesBtn">Change Files</button>
+                    `;
+                    document.getElementById('changeFilesBtn').addEventListener('click', resetTool);
+                } else {
+                    compressBtn.disabled = true;
+                    dropArea.innerHTML = `
+                        <i>📁</i>
+                        <h3>Drag & Drop Your Images Here</h3>
+                        <p>or</p>
+                        <button class="btn" id="selectFilesBtn">Select Files</button>
+                        <p>Supports: JPG, PNG, WebP</p>
+                    `;
+                    document.getElementById('selectFilesBtn').addEventListener('click', () => fileInput.click());
                 }
             }
             
-            // Education
-            const previewEducation = document.getElementById('previewEducation');
-            previewEducation.innerHTML = '';
-            
-            if (educationCount === 0) {
-                previewEducation.innerHTML = '<p>Add your education details in the form to see it here.</p>';
-            } else {
-                for (let i = 1; i <= educationCount; i++) {
-                    const degree = document.getElementById(`degree${i}`);
-                    if (degree) {
-                        const institution = document.getElementById(`institution${i}`).value || 'Institution';
-                        const location = document.getElementById(`educationLocation${i}`).value;
-                        const year = document.getElementById(`educationYear${i}`).value || 'Year';
-                        const description = document.getElementById(`educationDescription${i}`).value;
-                        
-                        const educationEntry = document.createElement('div');
-                        educationEntry.className = 'education-entry';
-                        educationEntry.innerHTML = `
-                            <div class="entry-header">
-                                <h4 class="entry-title">${degree.value || 'Degree'}</h4>
-                                <span class="entry-date">${year}</span>
+            async function compressImages() {
+                if (files.length === 0) return;
+                
+                // Show loading spinner
+                spinner.style.display = 'block';
+                compressBtn.disabled = true;
+                
+                // Get settings
+                const format = document.getElementById('format').value;
+                const quality = parseInt(document.getElementById('quality').value) / 100;
+                const resizePercentage = parseInt(document.getElementById('resize').value) / 100;
+                
+                // Clear previous results
+                resultGrid.innerHTML = '';
+                compressedFiles = [];
+                
+                // Process each file
+                for (const file of files) {
+                    try {
+                        const compressedFile = await processImage(file, format, quality, resizePercentage);
+                        compressedFiles.push(compressedFile);
+                        displayResult(file, compressedFile);
+                    } catch (error) {
+                        console.error('Error processing image:', error);
+                        // Display error for this file
+                        resultGrid.innerHTML += `
+                            <div class="result-card">
+                                <h3>${file.name}</h3>
+                                <p style="color: var(--accent-color)">Error processing this image</p>
                             </div>
-                            <div class="entry-subtitle">${institution}${location ? `, ${location}` : ''}</div>
-                            ${description ? `<div class="entry-description">${description}</div>` : ''}
                         `;
-                        previewEducation.appendChild(educationEntry);
                     }
                 }
+                
+                // Hide spinner and show results
+                spinner.style.display = 'none';
+                resultsSection.style.display = 'block';
+                
+                // Scroll to results
+                resultsSection.scrollIntoView({ behavior: 'smooth' });
             }
             
-            // Skills
-            const skillsInput = document.getElementById('skills').value;
-            const previewSkills = document.getElementById('previewSkills');
-            previewSkills.innerHTML = '';
-            
-            if (skillsInput) {
-                const skills = skillsInput.split(',').map(skill => skill.trim());
-                skills.forEach(skill => {
-                    if (skill) {
-                        const skillTag = document.createElement('div');
-                        skillTag.className = 'skill-tag';
-                        skillTag.textContent = skill;
-                        previewSkills.appendChild(skillTag);
-                    }
+            function processImage(file, format, quality, resizePercentage) {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(event) {
+                        const img = new Image();
+                        img.onload = function() {
+                            // Calculate new dimensions
+                            const width = img.width * resizePercentage;
+                            const height = img.height * resizePercentage;
+                            
+                            // Create canvas
+                            const canvas = document.createElement('canvas');
+                            canvas.width = width;
+                            canvas.height = height;
+                            const ctx = canvas.getContext('2d');
+                            
+                            // Draw image with new dimensions
+                            ctx.drawImage(img, 0, 0, width, height);
+                            
+                            // Determine output format
+                            let mimeType;
+                            if (format === 'original') {
+                                mimeType = file.type;
+                            } else {
+                                mimeType = `image/${format}`;
+                            }
+                            
+                            // Convert to blob
+                            canvas.toBlob(function(blob) {
+                                const compressedFile = new File([blob], getOutputFilename(file.name, format), {
+                                    type: mimeType,
+                                    lastModified: Date.now()
+                                });
+                                resolve(compressedFile);
+                            }, mimeType, quality);
+                        };
+                        
+                        img.onerror = reject;
+                        img.src = event.target.result;
+                    };
+                    
+                    reader.onerror = reject;
+                    reader.readAsDataURL(file);
                 });
             }
-        });
-
-        // Download as PDF
-        downloadPdfBtn.addEventListener('click', function() {
-            const resumeName = document.getElementById('fullName').value || 'resume';
             
-            html2canvas(document.getElementById('resumePreview')).then(canvas => {
-                const imgData = canvas.toDataURL('image/png');
-                const pdf = new jspdf.jsPDF('p', 'mm', 'a4');
-                const imgProps = pdf.getImageProperties(imgData);
-                const pdfWidth = pdf.internal.pageSize.getWidth();
-                const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+            function getOutputFilename(filename, format) {
+                const nameWithoutExt = filename.split('.').slice(0, -1).join('.');
+                const ext = format === 'original' ? filename.split('.').pop() : format;
+                return `${nameWithoutExt}-compressed.${ext}`;
+            }
+            
+            function displayResult(originalFile, compressedFile) {
+                // Calculate savings
+                const originalSize = (originalFile.size / 1024).toFixed(2);
+                const compressedSize = (compressedFile.size / 1024).toFixed(2);
+                const savings = ((1 - compressedFile.size / originalFile.size) * 100).toFixed(2);
                 
-                pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-                pdf.save(`${resumeName}-resume.pdf`);
-            });
+                // Create result card
+                const resultCard = document.createElement('div');
+                resultCard.className = 'result-card';
+                resultCard.innerHTML = `
+                    <img src="${URL.createObjectURL(compressedFile)}" alt="Compressed ${originalFile.name}">
+                    <h3>${originalFile.name}</h3>
+                    <div class="result-stats">
+                        <span>Original: ${originalSize} KB</span>
+                        <span>Compressed: ${compressedSize} KB</span>
+                    </div>
+                    <div class="result-stats">
+                        <span class="savings">${savings}% smaller</span>
+                        <span>${compressedFile.type.split('/')[1].toUpperCase()}</span>
+                    </div>
+                    <button class="btn download-btn" data-index="${compressedFiles.length - 1}">Download</button>
+                `;
+                
+                resultGrid.appendChild(resultCard);
+                
+                // Add download event listener
+                resultCard.querySelector('.download-btn').addEventListener('click', function() {
+                    downloadFile(compressedFile);
+                });
+            }
+            
+            function downloadFile(file) {
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(file);
+                a.download = file.name;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(a.href);
+            }
+            
+            function downloadAll() {
+                compressedFiles.forEach(file => {
+                    downloadFile(file);
+                });
+            }
+            
+            function resetTool() {
+                files = [];
+                compressedFiles = [];
+                fileInput.value = '';
+                resultsSection.style.display = 'none';
+                updateUI();
+            }
+            
+            // Initialize
+            updateUI();
         });
-
-        // Download as DOC
-        downloadDocBtn.addEventListener('click', function() {
-            const resumeName = document.getElementById('fullName').value || 'resume';
-            const htmlContent = `
-                <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
-                <head><title>${resumeName} Resume</title></head>
-                <body>${document.getElementById('resumePreview').innerHTML}</body>
-                </html>
-            `;
-            
-            const blob = new Blob(['\ufeff', htmlContent], {
-                type: 'application/msword'
-            });
-            
-            saveAs(blob, `${resumeName}-resume.doc`);
-        });
-
-        // Download as TXT
-        downloadTxtBtn.addEventListener('click', function() {
-            const resumeName = document.getElementById('fullName').value || 'resume';
-            let textContent = `${document.getElementById('previewName').textContent}\n`;
-            textContent += `${document.getElementById('previewProfession').textContent}\n\n`;
-            
-            // Contact info
-            const contactItems = document.querySelectorAll('#previewContact span');
-            contactItems.forEach(item => {
-                textContent += `${item.textContent}\n`;
-            });
-            
-            textContent += '\nSUMMARY\n';
-            textContent += `${document.getElementById('previewSummary').textContent}\n\n`;
-            
-            // Experience
-            textContent += 'WORK EXPERIENCE\n';
-            const experienceEntries = document.querySelectorAll('.experience-entry');
-            if (experienceEntries.length > 0) {
-                experienceEntries.forEach(entry => {
-                    textContent += `${entry.querySelector('.entry-title').textContent}\n`;
-                    textContent += `${entry.querySelector('.entry-date
+    </script>
+</body>
+</html>
