@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Image to Base64 Converter | Online Encoding Tool</title>
+    <meta name="description" content="Convert images to Base64 strings online. Embed images directly in HTML/CSS without external file references. Fast, secure, and free.">
+    <meta name="keywords" content="image to base64, base64 converter, image encoder, data URI, embed images, html image encoding">
+    <meta name="author" content="Web Tools Pro">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Free Image to Base64 Converter | Online Encoding Tool">
+    <meta property="og:description" content="Convert JPG, PNG, GIF to Base64 strings for direct embedding in HTML/CSS.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://webtoolspro.com/image-to-base64">
+    <meta property="og:image" content="https://webtoolspro.com/images/base64-converter-preview.jpg">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://webtoolspro.com/image-to-base64">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID" crossorigin="anonymous"></script>
+    
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary-color: #5c6bc0;
+            --secondary-color: #7986cb;
+            --accent-color: #ff7043;
+            --light-gray: #f8f9fa;
+            --dark-gray: #343a40;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-gray);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .upload-area {
+            border: 2px dashed #ccc;
+            padding: 3rem;
+            text-align: center;
+            background: rgba(255,255,255,0.7);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .upload-area:hover {
+            border-color: var(--primary-color);
+            background: rgba(92, 107, 192, 0.05);
+        }
+        
+        #image-preview {
+            max-width: 100%;
+            max-height: 300px;
+            display: none;
+            margin: 20px auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        #base64-result {
+            min-height: 200px;
+            font-family: monospace;
+            font-size: 14px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            overflow-x: auto;
+        }
+        
+        .result-container {
+            position: relative;
+        }
+        
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+        }
+        
+        .file-info {
+            background: #f1f1f1;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        
+        .ad-container {
+            background: #f1f3f4;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .upload-area {
+                padding: 2rem 1rem;
+            }
+            
+            .tool-btn {
+                margin-bottom: 10px;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-code"></i> Web Tools Pro
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Base64 Converter</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Tools</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container my-4">
+        <!-- Top Ad Banner -->
+        <div class="ad-container">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                 data-ad-slot="YOUR_TOP_AD_SLOT"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+        
+        <!-- Converter Tool -->
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h1 class="card-title mb-4"><i class="fas fa-image"></i> Image to Base64 Converter</h1>
+                <p class="lead">Convert images to Base64 strings for direct embedding in HTML/CSS</p>
+                
+                <!-- Upload Section -->
+                <div id="upload-section">
+                    <div class="upload-area" id="drop-zone">
+                        <i class="fas fa-cloud-upload-alt fa-3x mb-3" style="color: var(--primary-color);"></i>
+                        <h3>Drag & Drop Image Here</h3>
+                        <p class="text-muted">or click to select a file (JPG, PNG, GIF, SVG)</p>
+                        <input type="file" id="image-upload" accept="image/*" class="d-none">
+                        <button class="btn btn-primary btn-lg mt-3" id="browse-btn">
+                            <i class="fas fa-folder-open me-2"></i> Select Image
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Editor Section -->
+                <div id="editor-section" class="mt-4" style="display: none;">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <img id="image-preview" class="img-fluid">
+                            <div class="file-info mt-3">
+                                <div><strong>File Name:</strong> <span id="file-name"></span></div>
+                                <div><strong>File Size:</strong> <span id="file-size"></span></div>
+                                <div><strong>Dimensions:</strong> <span id="file-dimensions"></span></div>
+                                <div><strong>MIME Type:</strong> <span id="file-type"></span></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Base64 Result:</label>
+                                <div class="result-container">
+                                    <button class="btn btn-sm btn-outline-secondary copy-btn" id="copy-btn">
+                                        <i class="fas fa-copy"></i> Copy
+                                    </button>
+                                    <pre id="base64-result" class="form-control" style="height: 300px;"></pre>
+                                </div>
+                            </div>
+                            
+                            <div class="d-flex flex-wrap">
+                                <button class="btn btn-success me-2 mb-2" id="download-html-btn">
+                                    <i class="fas fa-code me-2"></i> Get HTML
+                                </button>
+                                <button class="btn btn-info me-2 mb-2" id="download-css-btn">
+                                    <i class="fab fa-css3 me-2"></i> Get CSS
+                                </button>
+                                <button class="btn btn-outline-secondary mb-2" id="new-image-btn">
+                                    <i class="fas fa-redo me-2"></i> New Image
+                                </button>
+                            </div>
+                            
+                            <div class="alert alert-info mt-3">
+                                <i class="fas fa-info-circle me-2"></i>
+                                Base64 strings can be used directly in HTML (img src) or CSS (background-image).
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Middle Ad Banner -->
+        <div class="ad-container">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                 data-ad-slot="YOUR_MIDDLE_AD_SLOT"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+        
+        <!-- Features Section -->
+        <div class="card shadow-sm mt-4">
+            <div class="card-body">
+                <h2 class="card-title mb-4"><i class="fas fa-star text-warning"></i> Why Use Our Base64 Converter?</h2>
+                <div class="row">
+                    <div class="col-md-4 mb-4">
+                        <div class="text-center p-3">
+                            <div class="bg-primary bg-opacity-10 p-3 rounded-circle d-inline-block mb-3">
+                                <i class="fas fa-lock fa-2x text-primary"></i>
+                            </div>
+                            <h5>Secure Processing</h5>
+                            <p>Your images are converted in your browser and never uploaded to any server.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="text-center p-3">
+                            <div class="bg-success bg-opacity-10 p-3 rounded-circle d-inline-block mb-3">
+                                <i class="fas fa-bolt fa-2x text-success"></i>
+                            </div>
+                            <h5>Instant Conversion</h5>
+                            <p>Get your Base64 encoded string immediately after selecting an image.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="text-center p-3">
+                            <div class="bg-info bg-opacity-10 p-3 rounded-circle d-inline-block mb-3">
+                                <i class="fas fa-file-code fa-2x text-info"></i>
+                            </div>
+                            <h5>Ready-to-Use Code</h5>
+                            <p>Get properly formatted HTML or CSS snippets for direct use in your projects.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- How It Works Section -->
+        <div class="card shadow-sm mt-4">
+            <div class="card-body">
+                <h2 class="card-title mb-4"><i class="fas fa-question-circle"></i> How to Convert Images to Base64</h2>
+                <ol class="list-group list-group-numbered">
+                    <li class="list-group-item border-0 ps-0">Upload your image by dragging & dropping or clicking "Select Image"</li>
+                    <li class="list-group-item border-0 ps-0">The Base64 encoded string will appear automatically</li>
+                    <li class="list-group-item border-0 ps-0">Copy the string or download ready-to-use HTML/CSS code</li>
+                    <li class="list-group-item border-0 ps-0">Use the encoded string in your web projects</li>
+                </ol>
+                
+                <div class="mt-4">
+                    <h5>Example Usage:</h5>
+                    <pre class="bg-light p-3 rounded">
+&lt;!-- HTML Usage --&gt;
+&lt;img src="data:image/png;base64,YOUR_BASE64_STRING"&gt;
+
+/* CSS Usage */
+background-image: url('data:image/png;base64,YOUR_BASE64_STRING');
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4 mt-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5>Web Tools Pro</h5>
+                    <p>Free online tools for web developers and designers.</p>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h6>Tools</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white text-decoration-none">Base64 Converter</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Image Optimizer</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Color Picker</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-2 mb-4 mb-md-0">
+                    <h6>Company</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white text-decoration-none">About Us</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Contact</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Privacy</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h6>Subscribe to Newsletter</h6>
+                    <div class="input-group mb-3">
+                        <input type="email" class="form-control" placeholder="Your email">
+                        <button class="btn btn-primary" type="button">Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4 bg-light">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; 2023 Web Tools Pro. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-white"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script>
+        // DOM Elements
+        const imageUpload = document.getElementById('image-upload');
+        const browseBtn = document.getElementById('browse-btn');
+        const dropZone = document.getElementById('drop-zone');
+        const uploadSection = document.getElementById('upload-section');
+        const editorSection = document.getElementById('editor-section');
+        const imagePreview = document.getElementById('image-preview');
+        const fileName = document.getElementById('file-name');
+        const fileSize = document.getElementById('file-size');
+        const fileDimensions = document.getElementById('file-dimensions');
+        const fileType = document.getElementById('file-type');
+        const base64Result = document.getElementById('base64-result');
+        const copyBtn = document.getElementById('copy-btn');
+        const downloadHtmlBtn = document.getElementById('download-html-btn');
+        const downloadCssBtn = document.getElementById('download-css-btn');
+        const newImageBtn = document.getElementById('new-image-btn');
+        
+        // Variables
+        let currentFile = null;
+        let currentBase64 = null;
+        let currentMimeType = null;
+        
+        // Event Listeners
+        browseBtn.addEventListener('click', () => imageUpload.click());
+        imageUpload.addEventListener('change', handleFileSelect);
+        
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.style.borderColor = 'var(--primary-color)';
+            dropZone.style.backgroundColor = 'rgba(92, 107, 192, 0.1)';
+        });
+        
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.style.borderColor = '#ccc';
+            dropZone.style.backgroundColor = 'rgba(255,255,255,0.7)';
+        });
+        
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.style.borderColor = '#ccc';
+            dropZone.style.backgroundColor = 'rgba(255,255,255,0.7)';
+            
+            if (e.dataTransfer.files[0]) {
+                imageUpload.files = e.dataTransfer.files;
+                handleFileSelect({ target: imageUpload });
+            }
+        });
+        
+        copyBtn.addEventListener('click', copyBase64);
+        downloadHtmlBtn.addEventListener('click', downloadHtml);
+        downloadCssBtn.addEventListener('click', downloadCss);
+        newImageBtn.addEventListener('click', resetTool);
+        
+        // Functions
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            if (!file.type.match('image.*')) {
+                alert('Please select an image file (JPG, PNG, GIF, SVG).');
+                return;
+            }
+            
+            currentFile = file;
+            currentMimeType = file.type;
+            
+            // Display file info
+            fileName.textContent = file.name;
+            fileSize.textContent = formatFileSize(file.size);
+            fileType.textContent = file.type;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                // Display image preview
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = 'block';
+                
+                // Get image dimensions
+                const img = new Image();
+                img.onload = function() {
+                    fileDimensions.textContent = `${this.width} × ${this.height} px`;
+                };
+                img.src = e.target.result;
+                
+                // Convert to Base64
+                convertToBase64(e.target.result);
+            };
+            reader.readAsDataURL(file);
+            
+            uploadSection.style.display = 'none';
+            editorSection.style.display = 'block';
+        }
+        
+        function convertToBase64(dataURL) {
+            // Extract Base64 part from Data URL
+            currentBase64 = dataURL.split(',')[1];
+            base64Result.textContent = currentBase64;
+        }
+        
+        function copyBase64() {
+            if (!currentBase64) {
+                alert('No Base64 string to copy. Please upload an image first.');
+                return;
+            }
+            
+            navigator.clipboard.writeText(currentBase64)
+                .then(() => {
+                    const originalText = copyBtn.innerHTML;
+                    copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                    setTimeout(() => {
+                        copyBtn.innerHTML = originalText;
+                    }, 2000);
+                })
+                .catch(err => {
+                    console.error('Copy failed:', err);
+                    alert('Failed to copy text. Please try again.');
+                });
+        }
+        
+        function downloadHtml() {
+            if (!currentBase64 || !currentMimeType) {
+                alert('No Base64 string available. Please upload an image first.');
+                return;
+            }
+            
+            const html = `<img src="data:${currentMimeType};base64,${currentBase64}" alt="Base64 Image">`;
+            downloadAsFile(html, 'image-embed.html');
+        }
+        
+        function downloadCss() {
+            if (!currentBase64 || !currentMimeType) {
+                alert('No Base64 string available. Please upload an image first.');
+                return;
+            }
+            
+            const css = `.base64-image {\n  background-image: url('data:${currentMimeType};base64,${currentBase64}');\n}`;
+            downloadAsFile(css, 'image-style.css');
+        }
+        
+        function downloadAsFile(content, filename) {
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+        
+        function resetTool() {
+            imageUpload.value = '';
+            currentFile = null;
+            currentBase64 = null;
+            currentMimeType = null;
+            imagePreview.style.display = 'none';
+            uploadSection.style.display = 'block';
+            editorSection.style.display = 'none';
+        }
+        
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+    </script>
+    
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Image to Base64 Converter",
+      "description": "Convert images to Base64 strings for direct embedding in HTML and CSS.",
+      "url": "https://webtoolspro.com/image-to-base64",
+      "applicationCategory": "DeveloperTool",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "creator": {
+        "@type": "Organization",
+        "name": "Web Tools Pro"
+      }
+    }
+    </script>
+</body>
+</html>
