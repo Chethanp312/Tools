@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online BMR calculator. Calculate your Basal Metabolic Rate (BMR) to estimate your daily calorie needs.">
+    <meta name="keywords" content="BMR calculator, basal metabolic rate, calorie calculator, metabolism calculator, daily calorie needs">
+    <meta name="author" content="BMR Calculator">
+    <meta property="og:title" content="Free Online BMR Calculator">
+    <meta property="og:description" content="Calculate your Basal Metabolic Rate (BMR) to estimate your daily calorie needs.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourbmrcalculator.com">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://yourbmrcalculator.com">
+    <title>BMR Calculator | Calculate Your Basal Metabolic Rate</title>
+    <style>
+        :root {
+            --primary-color: #4285f4;
+            --secondary-color: #34a853;
+            --accent-color: #ea4335;
+            --light-gray: #f5f5f5;
+            --dark-gray: #333;
+            --medium-gray: #757575;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: var(--dark-gray);
+            background-color: #fff;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+        
+        nav ul li a:hover {
+            opacity: 0.8;
+        }
+        
+        .hero {
+            background-color: var(--light-gray);
+            padding: 3rem 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark-gray);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--medium-gray);
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+        
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 2rem 0;
+        }
+        
+        .ad-space {
+            width: 100%;
+            background-color: var(--light-gray);
+            padding: 20px;
+            margin: 1rem 0;
+            text-align: center;
+            border: 1px dashed #ccc;
+        }
+        
+        .ad-space p {
+            color: var(--medium-gray);
+            margin-bottom: 10px;
+        }
+        
+        .tool-container {
+            flex: 1;
+            min-width: 300px;
+            padding: 1rem;
+        }
+        
+        .sidebar {
+            width: 300px;
+            padding: 1rem;
+        }
+        
+        .calculator {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .radio-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 0.5rem;
+        }
+        
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+            text-decoration: none;
+        }
+        
+        .btn:hover {
+            background-color: #3367d6;
+        }
+        
+        .results {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background-color: var(--light-gray);
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .results h2 {
+            margin-bottom: 1rem;
+            color: var(--dark-gray);
+        }
+        
+        .result-item {
+            margin-bottom: 1rem;
+        }
+        
+        .result-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .activity-levels {
+            width: 100%;
+            margin-top: 1rem;
+            border-collapse: collapse;
+        }
+        
+        .activity-levels th, .activity-levels td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        
+        .activity-levels th {
+            background-color: #f5f5f5;
+        }
+        
+        .activity-levels tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .info-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background-color: var(--light-gray);
+            border-radius: 8px;
+        }
+        
+        .info-section h2 {
+            margin-bottom: 1rem;
+            color: var(--dark-gray);
+        }
+        
+        .info-section p {
+            margin-bottom: 1rem;
+        }
+        
+        footer {
+            background-color: var(--dark-gray);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 1rem;
+            padding: 0 1rem;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-section ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section ul li a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #555;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                justify-content: center;
+            }
+            
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                order: -1;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .radio-group {
+                flex-direction: column;
+                gap: 5px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">BMR Calculator</div>
+            <nav>
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="container">
+            <h1>BMR Calculator</h1>
+            <p>Calculate your Basal Metabolic Rate (BMR) to estimate your daily calorie needs.</p>
+        </div>
+    </section>
+    
+    <div class="container">
+        <div class="ad-space">
+            <p>Advertisement</p>
+            <!-- Replace with your Google AdSense code -->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID"
+                crossorigin="anonymous"></script>
+            <!-- BMR Calculator Top Banner -->
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                data-ad-slot="YOUR_AD_SLOT_ID"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+        
+        <div class="main-content">
+            <div class="tool-container">
+                <div class="calculator">
+                    <div class="input-group">
+                        <label for="gender">Gender</label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="male" name="gender" value="male" checked>
+                                <label for="male">Male</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="female" name="gender" value="female">
+                                <label for="female">Female</label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="age">Age (years)</label>
+                        <input type="number" id="age" placeholder="Enter your age" min="15" max="120" value="30">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="height">Height (cm)</label>
+                        <input type="number" id="height" placeholder="Enter your height in cm" min="100" max="250" value="170">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="weight">Weight (kg)</label>
+                        <input type="number" id="weight" placeholder="Enter your weight in kg" min="30" max="300" value="70">
+                    </div>
+                    
+                    <button class="btn" id="calculateBtn">Calculate BMR</button>
+                    
+                    <div class="results" id="results">
+                        <h2>Your BMR Results</h2>
+                        
+                        <div class="result-item">
+                            <p>Your Basal Metabolic Rate (BMR):</p>
+                            <div class="result-value" id="bmrValue">0</div>
+                            <p>calories/day</p>
+                        </div>
+                        
+                        <div class="result-item">
+                            <p>Your daily calorie needs based on activity level:</p>
+                            <table class="activity-levels">
+                                <tr>
+                                    <th>Activity Level</th>
+                                    <th>Calorie Needs</th>
+                                </tr>
+                                <tr>
+                                    <td>Sedentary (little or no exercise)</td>
+                                    <td id="sedentary">0</td>
+                                </tr>
+                                <tr>
+                                    <td>Lightly active (light exercise 1-3 days/week)</td>
+                                    <td id="lightlyActive">0</td>
+                                </tr>
+                                <tr>
+                                    <td>Moderately active (moderate exercise 3-5 days/week)</td>
+                                    <td id="moderatelyActive">0</td>
+                                </tr>
+                                <tr>
+                                    <td>Very active (hard exercise 6-7 days/week)</td>
+                                    <td id="veryActive">0</td>
+                                </tr>
+                                <tr>
+                                    <td>Extra active (very hard exercise & physical job)</td>
+                                    <td id="extraActive">0</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-section">
+                    <h2>What is BMR?</h2>
+                    <p>Basal Metabolic Rate (BMR) is the number of calories your body needs to maintain basic physiological functions (like breathing and circulation) at complete rest. It accounts for about 60-70% of your total daily calorie expenditure.</p>
+                    
+                    <h2>How is BMR Calculated?</h2>
+                    <p>This calculator uses the Mifflin-St Jeor Equation, which is considered the most accurate for most people:</p>
+                    <ul>
+                        <li><strong>Men:</strong> BMR = 10 × weight(kg) + 6.25 × height(cm) - 5 × age(y) + 5</li>
+                        <li><strong>Women:</strong> BMR = 10 × weight(kg) + 6.25 × height(cm) - 5 × age(y) - 161</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="sidebar">
+                <div class="ad-space">
+                    <p>Advertisement</p>
+                    <!-- Replace with your Google AdSense code -->
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID"
+                        crossorigin="anonymous"></script>
+                    <!-- BMR Calculator Sidebar -->
+                    <ins class="adsbygoogle"
+                        style="display:block"
+                        data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                        data-ad-slot="YOUR_AD_SLOT_ID"
+                        data-ad-format="auto"
+                        data-full-width-responsive="true"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+                
+                <div class="info-section">
+                    <h2>Activity Level Guide</h2>
+                    <ul>
+                        <li><strong>Sedentary:</strong> Little or no exercise</li>
+                        <li><strong>Lightly active:</strong> Light exercise 1-3 days/week</li>
+                        <li><strong>Moderately active:</strong> Moderate exercise 3-5 days/week</li>
+                        <li><strong>Very active:</strong> Hard exercise 6-7 days/week</li>
+                        <li><strong>Extra active:</strong> Very hard exercise & physical job</li>
+                    </ul>
+                </div>
+                
+                <div class="info-section">
+                    <h2>Weight Management Tips</h2>
+                    <ul>
+                        <li>To <strong>lose weight</strong>: Consume fewer calories than your BMR + activity level</li>
+                        <li>To <strong>maintain weight</strong>: Match your calorie intake to your BMR + activity level</li>
+                        <li>To <strong>gain weight</strong>: Consume more calories than your BMR + activity level</li>
+                        <li>Combine diet with exercise for best results</li>
+                        <li>Consult a nutritionist for personalized advice</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="ad-space">
+            <p>Advertisement</p>
+            <!-- Replace with your Google AdSense code -->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID"
+                crossorigin="anonymous"></script>
+            <!-- BMR Calculator Bottom Banner -->
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                data-ad-slot="YOUR_AD_SLOT_ID"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>BMR Calculator</h3>
+                    <p>Free online tool to calculate your Basal Metabolic Rate.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3006052/" target="_blank">Mifflin-St Jeor Equation Study</a></li>
+                        <li><a href="https://www.mayoclinic.org/healthy-lifestyle/weight-loss/in-depth/metabolism/art-20046508" target="_blank">Mayo Clinic on Metabolism</a></li>
+                        <li><a href="https://www.hsph.harvard.edu/nutritionsource/healthy-weight/" target="_blank">Harvard Weight Management Guide</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; <span id="currentYear"></span> BMR Calculator. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set current year in footer
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+            
+            // Calculate button click handler
+            document.getElementById('calculateBtn').addEventListener('click', calculateBMR);
+            
+            // Calculate BMR function
+            function calculateBMR() {
+                // Get inputs
+                const gender = document.querySelector('input[name="gender"]:checked').value;
+                const age = parseFloat(document.getElementById('age').value);
+                const height = parseFloat(document.getElementById('height').value);
+                const weight = parseFloat(document.getElementById('weight').value);
+                
+                // Validate inputs
+                if (isNaN(age) || age <= 0) {
+                    alert('Please enter a valid age');
+                    return;
+                }
+                
+                if (isNaN(height) || height <= 0) {
+                    alert('Please enter a valid height');
+                    return;
+                }
+                
+                if (isNaN(weight) || weight <= 0) {
+                    alert('Please enter a valid weight');
+                    return;
+                }
+                
+                // Calculate BMR using Mifflin-St Jeor Equation
+                let bmr;
+                if (gender === 'male') {
+                    bmr = (10 * weight) + (6.25 * height) - (5 * age) + 5;
+                } else {
+                    bmr = (10 * weight) + (6.25 * height) - (5 * age) - 161;
+                }
+                
+                // Round to nearest whole number
+                bmr = Math.round(bmr);
+                
+                // Calculate calorie needs based on activity level
+                const sedentary = Math.round(bmr * 1.2);
+                const lightlyActive = Math.round(bmr * 1.375);
+                const moderatelyActive = Math.round(bmr * 1.55);
+                const veryActive = Math.round(bmr * 1.725);
+                const extraActive = Math.round(bmr * 1.9);
+                
+                // Display results
+                document.getElementById('bmrValue').textContent = bmr;
+                document.getElementById('sedentary').textContent = sedentary + ' calories/day';
+                document.getElementById('lightlyActive').textContent = lightlyActive + ' calories/day';
+                document.getElementById('moderatelyActive').textContent = moderatelyActive + ' calories/day';
+                document.getElementById('veryActive').textContent = veryActive + ' calories/day';
+                document.getElementById('extraActive').textContent = extraActive + ' calories/day';
+                
+                // Show results
+                document.getElementById('results').style.display = 'block';
+            }
+        });
+    </script>
+    
+    <!-- Structured data for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "BMR Calculator",
+        "url": "https://yourbmrcalculator.com",
+        "description": "Free online tool to calculate your Basal Metabolic Rate (BMR) to estimate your daily calorie needs.",
+        "applicationCategory": "HealthApplication",
+        "operatingSystem": "Web Browser",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+</body>
+</html>
