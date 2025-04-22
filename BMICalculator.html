@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online BMI calculator. Calculate your Body Mass Index (BMI) to check if you're at a healthy weight.">
+    <meta name="keywords" content="BMI calculator, body mass index, weight calculator, healthy weight, BMI chart">
+    <meta name="author" content="BMI Calculator">
+    <meta property="og:title" content="Free Online BMI Calculator">
+    <meta property="og:description" content="Calculate your BMI to check if you're at a healthy weight.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourbmicalculator.com">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://yourbmicalculator.com">
+    <title>BMI Calculator | Calculate Your Body Mass Index</title>
+    <style>
+        :root {
+            --primary-color: #4285f4;
+            --secondary-color: #34a853;
+            --accent-color: #ea4335;
+            --light-gray: #f5f5f5;
+            --dark-gray: #333;
+            --medium-gray: #757575;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            line-height: 1.6;
+            color: var(--dark-gray);
+            background-color: #fff;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+        
+        nav ul li a:hover {
+            opacity: 0.8;
+        }
+        
+        .hero {
+            background-color: var(--light-gray);
+            padding: 3rem 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark-gray);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--medium-gray);
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+        
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 2rem 0;
+        }
+        
+        .ad-space {
+            width: 100%;
+            background-color: var(--light-gray);
+            padding: 20px;
+            margin: 1rem 0;
+            text-align: center;
+            border: 1px dashed #ccc;
+        }
+        
+        .ad-space p {
+            color: var(--medium-gray);
+            margin-bottom: 10px;
+        }
+        
+        .tool-container {
+            flex: 1;
+            min-width: 300px;
+            padding: 1rem;
+        }
+        
+        .sidebar {
+            width: 300px;
+            padding: 1rem;
+        }
+        
+        .calculator {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .input-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+            text-decoration: none;
+        }
+        
+        .btn:hover {
+            background-color: #3367d6;
+        }
+        
+        .results {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background-color: var(--light-gray);
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .results h2 {
+            margin-bottom: 1rem;
+            color: var(--dark-gray);
+        }
+        
+        .bmi-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-align: center;
+            margin: 1rem 0;
+        }
+        
+        .bmi-category {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            padding: 0.5rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+        
+        .underweight {
+            background-color: #ffeb3b;
+            color: #ff6f00;
+        }
+        
+        .normal {
+            background-color: #4caf50;
+            color: white;
+        }
+        
+        .overweight {
+            background-color: #ff9800;
+            color: white;
+        }
+        
+        .obese {
+            background-color: #f44336;
+            color: white;
+        }
+        
+        .bmi-chart {
+            width: 100%;
+            margin-top: 1rem;
+            border-collapse: collapse;
+        }
+        
+        .bmi-chart th, .bmi-chart td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        
+        .bmi-chart th {
+            background-color: #f5f5f5;
+        }
+        
+        .info-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background-color: var(--light-gray);
+            border-radius: 8px;
+        }
+        
+        .info-section h2 {
+            margin-bottom: 1rem;
+            color: var(--dark-gray);
+        }
+        
+        .info-section p {
+            margin-bottom: 1rem;
+        }
+        
+        footer {
+            background-color: var(--dark-gray);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 1rem;
+            padding: 0 1rem;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-section ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section ul li a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #555;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                justify-content: center;
+            }
+            
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                order: -1;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">BMI Calculator</div>
+            <nav>
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="container">
+            <h1>BMI Calculator</h1>
+            <p>Calculate your Body Mass Index (BMI) to check if you're at a healthy weight.</p>
+        </div>
+    </section>
+    
+    <div class="container">
+        <div class="ad-space">
+            <p>Advertisement</p>
+            <!-- Replace with your Google AdSense code -->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID"
+                crossorigin="anonymous"></script>
+            <!-- BMI Calculator Top Banner -->
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                data-ad-slot="YOUR_AD_SLOT_ID"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+        
+        <div class="main-content">
+            <div class="tool-container">
+                <div class="calculator">
+                    <div class="input-group">
+                        <label for="height">Height (cm)</label>
+                        <input type="number" id="height" placeholder="Enter your height in cm" min="100" max="250">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="weight">Weight (kg)</label>
+                        <input type="number" id="weight" placeholder="Enter your weight in kg" min="30" max="300">
+                    </div>
+                    
+                    <button class="btn" id="calculateBtn">Calculate BMI</button>
+                    
+                    <div class="results" id="results">
+                        <h2>Your BMI Result</h2>
+                        <div class="bmi-value" id="bmiValue">0.0</div>
+                        <div class="bmi-category" id="bmiCategory">-</div>
+                        
+                        <table class="bmi-chart">
+                            <tr>
+                                <th>BMI Range</th>
+                                <th>Category</th>
+                            </tr>
+                            <tr>
+                                <td>&lt; 18.5</td>
+                                <td>Underweight</td>
+                            </tr>
+                            <tr>
+                                <td>18.5 - 24.9</td>
+                                <td>Normal weight</td>
+                            </tr>
+                            <tr>
+                                <td>25 - 29.9</td>
+                                <td>Overweight</td>
+                            </tr>
+                            <tr>
+                                <td>≥ 30</td>
+                                <td>Obese</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="info-section">
+                    <h2>What is BMI?</h2>
+                    <p>Body Mass Index (BMI) is a simple calculation using a person's height and weight. The formula is BMI = kg/m² where kg is a person's weight in kilograms and m² is their height in meters squared.</p>
+                    
+                    <h2>BMI Categories</h2>
+                    <ul>
+                        <li><strong>Underweight:</strong> BMI less than 18.5</li>
+                        <li><strong>Normal weight:</strong> BMI 18.5 to 24.9</li>
+                        <li><strong>Overweight:</strong> BMI 25 to 29.9</li>
+                        <li><strong>Obese:</strong> BMI 30 or higher</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="sidebar">
+                <div class="ad-space">
+                    <p>Advertisement</p>
+                    <!-- Replace with your Google AdSense code -->
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID"
+                        crossorigin="anonymous"></script>
+                    <!-- BMI Calculator Sidebar -->
+                    <ins class="adsbygoogle"
+                        style="display:block"
+                        data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                        data-ad-slot="YOUR_AD_SLOT_ID"
+                        data-ad-format="auto"
+                        data-full-width-responsive="true"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+                
+                <div class="info-section">
+                    <h2>BMI Limitations</h2>
+                    <p>While BMI is a useful screening tool, it has limitations:</p>
+                    <ul>
+                        <li>Does not measure body fat directly</li>
+                        <li>May overestimate body fat in athletes</li>
+                        <li>May underestimate body fat in older adults</li>
+                        <li>Does not account for muscle mass or fat distribution</li>
+                    </ul>
+                </div>
+                
+                <div class="info-section">
+                    <h2>Healthy Weight Tips</h2>
+                    <ul>
+                        <li>Eat a balanced diet with plenty of fruits and vegetables</li>
+                        <li>Engage in regular physical activity</li>
+                        <li>Get enough sleep (7-9 hours per night)</li>
+                        <li>Manage stress effectively</li>
+                        <li>Consult a healthcare provider for personalized advice</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="ad-space">
+            <p>Advertisement</p>
+            <!-- Replace with your Google AdSense code -->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID"
+                crossorigin="anonymous"></script>
+            <!-- BMI Calculator Bottom Banner -->
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                data-ad-slot="YOUR_AD_SLOT_ID"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>BMI Calculator</h3>
+                    <p>Free online tool to calculate your Body Mass Index.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="https://www.cdc.gov/healthyweight/assessing/bmi/index.html" target="_blank">CDC BMI Information</a></li>
+                        <li><a href="https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight" target="_blank">WHO on Obesity</a></li>
+                        <li><a href="https://www.nhlbi.nih.gov/health/educational/lose_wt/index.htm" target="_blank">Healthy Weight Guide</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; <span id="currentYear"></span> BMI Calculator. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set current year in footer
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+            
+            // Calculate button click handler
+            document.getElementById('calculateBtn').addEventListener('click', calculateBMI);
+            
+            // Calculate BMI function
+            function calculateBMI() {
+                const height = parseFloat(document.getElementById('height').value);
+                const weight = parseFloat(document.getElementById('weight').value);
+                
+                // Validate inputs
+                if (isNaN(height) || height <= 0) {
+                    alert('Please enter a valid height');
+                    return;
+                }
+                
+                if (isNaN(weight) || weight <= 0) {
+                    alert('Please enter a valid weight');
+                    return;
+                }
+                
+                // Calculate BMI (weight in kg / (height in m)^2)
+                const heightInMeters = height / 100;
+                const bmi = weight / (heightInMeters * heightInMeters);
+                const roundedBMI = Math.round(bmi * 10) / 10;
+                
+                // Display result
+                document.getElementById('bmiValue').textContent = roundedBMI;
+                
+                // Determine category
+                const bmiCategory = document.getElementById('bmiCategory');
+                if (bmi < 18.5) {
+                    bmiCategory.textContent = 'Underweight';
+                    bmiCategory.className = 'bmi-category underweight';
+                } else if (bmi >= 18.5 && bmi < 25) {
+                    bmiCategory.textContent = 'Normal weight';
+                    bmiCategory.className = 'bmi-category normal';
+                } else if (bmi >= 25 && bmi < 30) {
+                    bmiCategory.textContent = 'Overweight';
+                    bmiCategory.className = 'bmi-category overweight';
+                } else {
+                    bmiCategory.textContent = 'Obese';
+                    bmiCategory.className = 'bmi-category obese';
+                }
+                
+                // Show results
+                document.getElementById('results').style.display = 'block';
+            }
+        });
+    </script>
+    
+    <!-- Structured data for SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "BMI Calculator",
+        "url": "https://yourbmicalculator.com",
+        "description": "Free online tool to calculate your Body Mass Index (BMI) to check if you're at a healthy weight.",
+        "applicationCategory": "HealthApplication",
+        "operatingSystem": "Web Browser",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
+</body>
+</html>
